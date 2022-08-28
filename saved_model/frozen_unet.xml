@@ -1,0 +1,3563 @@
+<?xml version="1.0" ?>
+<net name="frozen_unet" version="10">
+	<layers>
+		<layer id="0" name="x" type="Parameter" version="opset1">
+			<data element_type="f16" shape="1, 3, 128, 128"/>
+			<output>
+				<port id="0" names="x:0" precision="FP16">
+					<dim>1</dim>
+					<dim>3</dim>
+					<dim>128</dim>
+					<dim>128</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="1" name="model_12/sequential_43/instance_normalization_27/StatefulPartitionedCall/StatefulPartitionedCall/ReadVariableOp" type="Const" version="opset1">
+			<data element_type="f16" offset="0" shape="1, 32, 1, 1" size="64"/>
+			<output>
+				<port id="0" names="model_12/sequential_43/instance_normalization_27/StatefulPartitionedCall/StatefulPartitionedCall/ReadVariableOp:0" precision="FP16">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="2" name="model_12/sequential_42/instance_normalization_26/StatefulPartitionedCall/StatefulPartitionedCall/ReadVariableOp" type="Const" version="opset1">
+			<data element_type="f16" offset="64" shape="1, 64, 1, 1" size="128"/>
+			<output>
+				<port id="0" names="model_12/sequential_42/instance_normalization_26/StatefulPartitionedCall/StatefulPartitionedCall/ReadVariableOp:0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="3" name="model_12/sequential_41/instance_normalization_25/StatefulPartitionedCall/StatefulPartitionedCall/ReadVariableOp" type="Const" version="opset1">
+			<data element_type="f16" offset="192" shape="1, 128, 1, 1" size="256"/>
+			<output>
+				<port id="0" names="model_12/sequential_41/instance_normalization_25/StatefulPartitionedCall/StatefulPartitionedCall/ReadVariableOp:0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="4" name="model_12/sequential_40/instance_normalization_24/StatefulPartitionedCall/StatefulPartitionedCall/ReadVariableOp" type="Const" version="opset1">
+			<data element_type="f16" offset="448" shape="1, 256, 1, 1" size="512"/>
+			<output>
+				<port id="0" names="model_12/sequential_40/instance_normalization_24/StatefulPartitionedCall/StatefulPartitionedCall/ReadVariableOp:0" precision="FP16">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="5" name="model_12/sequential_39/instance_normalization_23/StatefulPartitionedCall/StatefulPartitionedCall/ReadVariableOp" type="Const" version="opset1">
+			<data element_type="f16" offset="960" shape="1, 128, 1, 1" size="256"/>
+			<output>
+				<port id="0" names="model_12/sequential_39/instance_normalization_23/StatefulPartitionedCall/StatefulPartitionedCall/ReadVariableOp:0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="6" name="model_12/sequential_38/instance_normalization_22/StatefulPartitionedCall/StatefulPartitionedCall/ReadVariableOp" type="Const" version="opset1">
+			<data element_type="f16" offset="1216" shape="1, 64, 1, 1" size="128"/>
+			<output>
+				<port id="0" names="model_12/sequential_38/instance_normalization_22/StatefulPartitionedCall/StatefulPartitionedCall/ReadVariableOp:0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="7" name="model_12/sequential_37/conv2d_16/Conv2D/ReadVariableOp" type="Const" version="opset1">
+			<data element_type="f16" offset="1344" shape="32, 3, 4, 4" size="3072"/>
+			<output>
+				<port id="0" names="model_12/sequential_37/conv2d_16/Conv2D/ReadVariableOp:0" precision="FP16">
+					<dim>32</dim>
+					<dim>3</dim>
+					<dim>4</dim>
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="8" name="model_12/sequential_37/conv2d_16/Conv2D" type="Convolution" version="opset1">
+			<data auto_pad="same_upper" dilations="1, 1" pads_begin="1, 1" pads_end="1, 1" strides="2, 2"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>3</dim>
+					<dim>128</dim>
+					<dim>128</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>32</dim>
+					<dim>3</dim>
+					<dim>4</dim>
+					<dim>4</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/sequential_37/conv2d_16/Conv2D:0" precision="FP16">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="9" name="model_12/sequential_37/leaky_re_lu_16/LeakyRelu/weights46077086" type="Const" version="opset1">
+			<data element_type="f32" offset="4416" shape="1" size="4"/>
+			<output>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="10" name="model_12/sequential_37/leaky_re_lu_16/LeakyRelu" type="PReLU" version="opset1">
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/sequential_37/leaky_re_lu_16/LeakyRelu:0" precision="FP16">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="11" name="model_12/sequential_38/conv2d_17/Conv2D/ReadVariableOp" type="Const" version="opset1">
+			<data element_type="f16" offset="4420" shape="64, 32, 4, 4" size="65536"/>
+			<output>
+				<port id="0" names="model_12/sequential_38/conv2d_17/Conv2D/ReadVariableOp:0" precision="FP16">
+					<dim>64</dim>
+					<dim>32</dim>
+					<dim>4</dim>
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="12" name="model_12/sequential_38/conv2d_17/Conv2D" type="Convolution" version="opset1">
+			<data auto_pad="same_upper" dilations="1, 1" pads_begin="1, 1" pads_end="1, 1" strides="2, 2"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>64</dim>
+					<dim>32</dim>
+					<dim>4</dim>
+					<dim>4</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="Func/model_12/sequential_38/instance_normalization_22/StatefulPartitionedCall/StatefulPartitionedCall/input/_37:0,Func/model_12/sequential_38/instance_normalization_22/StatefulPartitionedCall/input/_1:0,model_12/sequential_38/conv2d_17/Conv2D:0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="13" name="39327101" type="Const" version="opset1">
+			<data element_type="i64" offset="69956" shape="2" size="16"/>
+			<output>
+				<port id="0" precision="I64">
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="14" name="model_12/sequential_38/instance_normalization_22/StatefulPartitionedCall/StatefulPartitionedCall/moments/mean" type="ReduceMean" version="opset1">
+			<data keep_dims="true"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+				<port id="1" precision="I64">
+					<dim>2</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="15" name="model_12/sequential_38/instance_normalization_22/StatefulPartitionedCall/StatefulPartitionedCall/sub/sub" type="Subtract" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/sequential_38/instance_normalization_22/StatefulPartitionedCall/StatefulPartitionedCall/sub:0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="16" name="model_12/sequential_38/instance_normalization_22/StatefulPartitionedCall/StatefulPartitionedCall/moments/SquaredDifference" type="SquaredDifference" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/sequential_38/instance_normalization_22/StatefulPartitionedCall/StatefulPartitionedCall/moments/SquaredDifference:0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="17" name="39387125" type="Const" version="opset1">
+			<data element_type="i64" offset="69956" shape="2" size="16"/>
+			<output>
+				<port id="0" precision="I64">
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="18" name="model_12/sequential_38/instance_normalization_22/StatefulPartitionedCall/StatefulPartitionedCall/moments/variance" type="ReduceMean" version="opset1">
+			<data keep_dims="true"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+				<port id="1" precision="I64">
+					<dim>2</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/sequential_38/instance_normalization_22/StatefulPartitionedCall/StatefulPartitionedCall/moments/variance:0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="19" name="model_12/sequential_38/instance_normalization_22/StatefulPartitionedCall/StatefulPartitionedCall/add/y" type="Const" version="opset1">
+			<data element_type="f16" offset="69972" shape="1, 1, 1, 1" size="2"/>
+			<output>
+				<port id="0" names="model_12/sequential_38/instance_normalization_22/StatefulPartitionedCall/StatefulPartitionedCall/add/y:0" precision="FP16">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="20" name="model_12/sequential_38/instance_normalization_22/StatefulPartitionedCall/StatefulPartitionedCall/add" type="Add" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="21" name="286" type="Const" version="opset1">
+			<data element_type="f16" offset="69974" shape="1, 1, 1, 1" size="2"/>
+			<output>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="22" name="model_12/sequential_38/instance_normalization_22/StatefulPartitionedCall/StatefulPartitionedCall/Rsqrt/pow_" type="Power" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/sequential_38/instance_normalization_22/StatefulPartitionedCall/StatefulPartitionedCall/Rsqrt:0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="23" name="model_12/sequential_38/instance_normalization_22/StatefulPartitionedCall/StatefulPartitionedCall/mul" type="Multiply" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/sequential_38/instance_normalization_22/StatefulPartitionedCall/StatefulPartitionedCall/mul:0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="24" name="model_12/sequential_38/instance_normalization_22/StatefulPartitionedCall/StatefulPartitionedCall/mul_1" type="Multiply" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/sequential_38/instance_normalization_22/StatefulPartitionedCall/StatefulPartitionedCall/mul_1:0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="25" name="model_12/sequential_38/instance_normalization_22/StatefulPartitionedCall/StatefulPartitionedCall/add_1/ReadVariableOp" type="Const" version="opset1">
+			<data element_type="f16" offset="69976" shape="1, 64, 1, 1" size="128"/>
+			<output>
+				<port id="0" names="model_12/sequential_38/instance_normalization_22/StatefulPartitionedCall/StatefulPartitionedCall/add_1/ReadVariableOp:0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="26" name="model_12/sequential_38/instance_normalization_22/StatefulPartitionedCall/StatefulPartitionedCall/add_1" type="Add" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="Func/model_12/sequential_38/instance_normalization_22/StatefulPartitionedCall/StatefulPartitionedCall/output/_40:0,Func/model_12/sequential_38/instance_normalization_22/StatefulPartitionedCall/output/_4:0,model_12/sequential_38/instance_normalization_22/StatefulPartitionedCall/Identity:0,model_12/sequential_38/instance_normalization_22/StatefulPartitionedCall/StatefulPartitionedCall/Identity:0,model_12/sequential_38/instance_normalization_22/StatefulPartitionedCall/StatefulPartitionedCall/add_1:0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="27" name="model_12/sequential_38/leaky_re_lu_17/LeakyRelu/weights45957188" type="Const" version="opset1">
+			<data element_type="f32" offset="4416" shape="1" size="4"/>
+			<output>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="28" name="model_12/sequential_38/leaky_re_lu_17/LeakyRelu" type="PReLU" version="opset1">
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/sequential_38/leaky_re_lu_17/LeakyRelu:0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="29" name="model_12/sequential_39/conv2d_18/Conv2D/ReadVariableOp" type="Const" version="opset1">
+			<data element_type="f16" offset="70104" shape="128, 64, 4, 4" size="262144"/>
+			<output>
+				<port id="0" names="model_12/sequential_39/conv2d_18/Conv2D/ReadVariableOp:0" precision="FP16">
+					<dim>128</dim>
+					<dim>64</dim>
+					<dim>4</dim>
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="30" name="model_12/sequential_39/conv2d_18/Conv2D" type="Convolution" version="opset1">
+			<data auto_pad="same_upper" dilations="1, 1" pads_begin="1, 1" pads_end="1, 1" strides="2, 2"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>128</dim>
+					<dim>64</dim>
+					<dim>4</dim>
+					<dim>4</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="Func/model_12/sequential_39/instance_normalization_23/StatefulPartitionedCall/StatefulPartitionedCall/input/_43:0,Func/model_12/sequential_39/instance_normalization_23/StatefulPartitionedCall/input/_7:0,model_12/sequential_39/conv2d_18/Conv2D:0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="31" name="39487065" type="Const" version="opset1">
+			<data element_type="i64" offset="69956" shape="2" size="16"/>
+			<output>
+				<port id="0" precision="I64">
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="32" name="model_12/sequential_39/instance_normalization_23/StatefulPartitionedCall/StatefulPartitionedCall/moments/mean" type="ReduceMean" version="opset1">
+			<data keep_dims="true"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+				<port id="1" precision="I64">
+					<dim>2</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="33" name="model_12/sequential_39/instance_normalization_23/StatefulPartitionedCall/StatefulPartitionedCall/sub/sub" type="Subtract" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/sequential_39/instance_normalization_23/StatefulPartitionedCall/StatefulPartitionedCall/sub:0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="34" name="model_12/sequential_39/instance_normalization_23/StatefulPartitionedCall/StatefulPartitionedCall/moments/SquaredDifference" type="SquaredDifference" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/sequential_39/instance_normalization_23/StatefulPartitionedCall/StatefulPartitionedCall/moments/SquaredDifference:0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="35" name="39547245" type="Const" version="opset1">
+			<data element_type="i64" offset="69956" shape="2" size="16"/>
+			<output>
+				<port id="0" precision="I64">
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="36" name="model_12/sequential_39/instance_normalization_23/StatefulPartitionedCall/StatefulPartitionedCall/moments/variance" type="ReduceMean" version="opset1">
+			<data keep_dims="true"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+				<port id="1" precision="I64">
+					<dim>2</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/sequential_39/instance_normalization_23/StatefulPartitionedCall/StatefulPartitionedCall/moments/variance:0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="37" name="model_12/sequential_39/instance_normalization_23/StatefulPartitionedCall/StatefulPartitionedCall/add/y" type="Const" version="opset1">
+			<data element_type="f16" offset="69972" shape="1, 1, 1, 1" size="2"/>
+			<output>
+				<port id="0" names="model_12/sequential_39/instance_normalization_23/StatefulPartitionedCall/StatefulPartitionedCall/add/y:0" precision="FP16">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="38" name="model_12/sequential_39/instance_normalization_23/StatefulPartitionedCall/StatefulPartitionedCall/add" type="Add" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="39" name="280" type="Const" version="opset1">
+			<data element_type="f16" offset="69974" shape="1, 1, 1, 1" size="2"/>
+			<output>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="40" name="model_12/sequential_39/instance_normalization_23/StatefulPartitionedCall/StatefulPartitionedCall/Rsqrt/pow_" type="Power" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/sequential_39/instance_normalization_23/StatefulPartitionedCall/StatefulPartitionedCall/Rsqrt:0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="41" name="model_12/sequential_39/instance_normalization_23/StatefulPartitionedCall/StatefulPartitionedCall/mul" type="Multiply" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/sequential_39/instance_normalization_23/StatefulPartitionedCall/StatefulPartitionedCall/mul:0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="42" name="model_12/sequential_39/instance_normalization_23/StatefulPartitionedCall/StatefulPartitionedCall/mul_1" type="Multiply" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/sequential_39/instance_normalization_23/StatefulPartitionedCall/StatefulPartitionedCall/mul_1:0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="43" name="model_12/sequential_39/instance_normalization_23/StatefulPartitionedCall/StatefulPartitionedCall/add_1/ReadVariableOp" type="Const" version="opset1">
+			<data element_type="f16" offset="332248" shape="1, 128, 1, 1" size="256"/>
+			<output>
+				<port id="0" names="model_12/sequential_39/instance_normalization_23/StatefulPartitionedCall/StatefulPartitionedCall/add_1/ReadVariableOp:0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="44" name="model_12/sequential_39/instance_normalization_23/StatefulPartitionedCall/StatefulPartitionedCall/add_1" type="Add" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="Func/model_12/sequential_39/instance_normalization_23/StatefulPartitionedCall/StatefulPartitionedCall/output/_46:0,Func/model_12/sequential_39/instance_normalization_23/StatefulPartitionedCall/output/_10:0,model_12/sequential_39/instance_normalization_23/StatefulPartitionedCall/Identity:0,model_12/sequential_39/instance_normalization_23/StatefulPartitionedCall/StatefulPartitionedCall/Identity:0,model_12/sequential_39/instance_normalization_23/StatefulPartitionedCall/StatefulPartitionedCall/add_1:0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="45" name="model_12/sequential_39/leaky_re_lu_18/LeakyRelu/weights45997269" type="Const" version="opset1">
+			<data element_type="f32" offset="4416" shape="1" size="4"/>
+			<output>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="46" name="model_12/sequential_39/leaky_re_lu_18/LeakyRelu" type="PReLU" version="opset1">
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/sequential_39/leaky_re_lu_18/LeakyRelu:0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="47" name="model_12/sequential_40/conv2d_19/Conv2D/ReadVariableOp" type="Const" version="opset1">
+			<data element_type="f16" offset="332504" shape="256, 128, 4, 4" size="1048576"/>
+			<output>
+				<port id="0" names="model_12/sequential_40/conv2d_19/Conv2D/ReadVariableOp:0" precision="FP16">
+					<dim>256</dim>
+					<dim>128</dim>
+					<dim>4</dim>
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="48" name="model_12/sequential_40/conv2d_19/Conv2D" type="Convolution" version="opset1">
+			<data auto_pad="same_upper" dilations="1, 1" pads_begin="1, 1" pads_end="1, 1" strides="2, 2"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>256</dim>
+					<dim>128</dim>
+					<dim>4</dim>
+					<dim>4</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="Func/model_12/sequential_40/instance_normalization_24/StatefulPartitionedCall/StatefulPartitionedCall/input/_49:0,Func/model_12/sequential_40/instance_normalization_24/StatefulPartitionedCall/input/_13:0,model_12/sequential_40/conv2d_19/Conv2D:0" precision="FP16">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>8</dim>
+					<dim>8</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="49" name="39647161" type="Const" version="opset1">
+			<data element_type="i64" offset="69956" shape="2" size="16"/>
+			<output>
+				<port id="0" precision="I64">
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="50" name="model_12/sequential_40/instance_normalization_24/StatefulPartitionedCall/StatefulPartitionedCall/moments/mean" type="ReduceMean" version="opset1">
+			<data keep_dims="true"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>8</dim>
+					<dim>8</dim>
+				</port>
+				<port id="1" precision="I64">
+					<dim>2</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP16">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="51" name="model_12/sequential_40/instance_normalization_24/StatefulPartitionedCall/StatefulPartitionedCall/sub/sub" type="Subtract" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>8</dim>
+					<dim>8</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/sequential_40/instance_normalization_24/StatefulPartitionedCall/StatefulPartitionedCall/sub:0" precision="FP16">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>8</dim>
+					<dim>8</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="52" name="model_12/sequential_40/instance_normalization_24/StatefulPartitionedCall/StatefulPartitionedCall/moments/SquaredDifference" type="SquaredDifference" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>8</dim>
+					<dim>8</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/sequential_40/instance_normalization_24/StatefulPartitionedCall/StatefulPartitionedCall/moments/SquaredDifference:0" precision="FP16">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>8</dim>
+					<dim>8</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="53" name="39707251" type="Const" version="opset1">
+			<data element_type="i64" offset="69956" shape="2" size="16"/>
+			<output>
+				<port id="0" precision="I64">
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="54" name="model_12/sequential_40/instance_normalization_24/StatefulPartitionedCall/StatefulPartitionedCall/moments/variance" type="ReduceMean" version="opset1">
+			<data keep_dims="true"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>8</dim>
+					<dim>8</dim>
+				</port>
+				<port id="1" precision="I64">
+					<dim>2</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/sequential_40/instance_normalization_24/StatefulPartitionedCall/StatefulPartitionedCall/moments/variance:0" precision="FP16">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="55" name="model_12/sequential_40/instance_normalization_24/StatefulPartitionedCall/StatefulPartitionedCall/add/y" type="Const" version="opset1">
+			<data element_type="f16" offset="69972" shape="1, 1, 1, 1" size="2"/>
+			<output>
+				<port id="0" names="model_12/sequential_40/instance_normalization_24/StatefulPartitionedCall/StatefulPartitionedCall/add/y:0" precision="FP16">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="56" name="model_12/sequential_40/instance_normalization_24/StatefulPartitionedCall/StatefulPartitionedCall/add" type="Add" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP16">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="57" name="278" type="Const" version="opset1">
+			<data element_type="f16" offset="69974" shape="1, 1, 1, 1" size="2"/>
+			<output>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="58" name="model_12/sequential_40/instance_normalization_24/StatefulPartitionedCall/StatefulPartitionedCall/Rsqrt/pow_" type="Power" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/sequential_40/instance_normalization_24/StatefulPartitionedCall/StatefulPartitionedCall/Rsqrt:0" precision="FP16">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="59" name="model_12/sequential_40/instance_normalization_24/StatefulPartitionedCall/StatefulPartitionedCall/mul" type="Multiply" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>8</dim>
+					<dim>8</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/sequential_40/instance_normalization_24/StatefulPartitionedCall/StatefulPartitionedCall/mul:0" precision="FP16">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>8</dim>
+					<dim>8</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="60" name="model_12/sequential_40/instance_normalization_24/StatefulPartitionedCall/StatefulPartitionedCall/mul_1" type="Multiply" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>8</dim>
+					<dim>8</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/sequential_40/instance_normalization_24/StatefulPartitionedCall/StatefulPartitionedCall/mul_1:0" precision="FP16">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>8</dim>
+					<dim>8</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="61" name="model_12/sequential_40/instance_normalization_24/StatefulPartitionedCall/StatefulPartitionedCall/add_1/ReadVariableOp" type="Const" version="opset1">
+			<data element_type="f16" offset="1381080" shape="1, 256, 1, 1" size="512"/>
+			<output>
+				<port id="0" names="model_12/sequential_40/instance_normalization_24/StatefulPartitionedCall/StatefulPartitionedCall/add_1/ReadVariableOp:0" precision="FP16">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="62" name="model_12/sequential_40/instance_normalization_24/StatefulPartitionedCall/StatefulPartitionedCall/add_1" type="Add" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>8</dim>
+					<dim>8</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="Func/model_12/sequential_40/instance_normalization_24/StatefulPartitionedCall/StatefulPartitionedCall/output/_52:0,Func/model_12/sequential_40/instance_normalization_24/StatefulPartitionedCall/output/_16:0,model_12/sequential_40/instance_normalization_24/StatefulPartitionedCall/Identity:0,model_12/sequential_40/instance_normalization_24/StatefulPartitionedCall/StatefulPartitionedCall/Identity:0,model_12/sequential_40/instance_normalization_24/StatefulPartitionedCall/StatefulPartitionedCall/add_1:0" precision="FP16">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>8</dim>
+					<dim>8</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="63" name="model_12/sequential_40/leaky_re_lu_19/LeakyRelu/weights46037092" type="Const" version="opset1">
+			<data element_type="f32" offset="4416" shape="1" size="4"/>
+			<output>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="64" name="model_12/sequential_40/leaky_re_lu_19/LeakyRelu" type="PReLU" version="opset1">
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>8</dim>
+					<dim>8</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/sequential_40/leaky_re_lu_19/LeakyRelu:0" precision="FP16">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>8</dim>
+					<dim>8</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="65" name="model_12/sequential_41/conv2d_transpose_29/conv2d_transpose/ReadVariableOp" type="Const" version="opset1">
+			<data element_type="f16" offset="1381592" shape="256, 128, 4, 4" size="1048576"/>
+			<output>
+				<port id="0" names="model_12/sequential_41/conv2d_transpose_29/conv2d_transpose/ReadVariableOp:0" precision="FP16">
+					<dim>256</dim>
+					<dim>128</dim>
+					<dim>4</dim>
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="66" name="model_12/sequential_41/conv2d_transpose_29/Shape" type="ShapeOf" version="opset3">
+			<data output_type="i32"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>8</dim>
+					<dim>8</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" precision="I32">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="67" name="model_12/sequential_41/conv2d_transpose_29/Shape/GatherNCHWtoNHWC_input_port_1/value37787353" type="Const" version="opset1">
+			<data element_type="i32" offset="2430168" shape="4" size="16"/>
+			<output>
+				<port id="0" precision="I32">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="68" name="model_12/sequential_41/conv2d_transpose_29/Shape/GatherNCHWtoNHWC_input_port_2/value37807053" type="Const" version="opset1">
+			<data element_type="i64" offset="2430184" shape="" size="8"/>
+			<output>
+				<port id="0" precision="I64"/>
+			</output>
+		</layer>
+		<layer id="69" name="model_12/sequential_41/conv2d_transpose_29/Shape/GatherNCHWtoNHWC" type="Gather" version="opset7">
+			<data batch_dims="0"/>
+			<input>
+				<port id="0" precision="I32">
+					<dim>4</dim>
+				</port>
+				<port id="1" precision="I32">
+					<dim>4</dim>
+				</port>
+				<port id="2" precision="I64"/>
+			</input>
+			<output>
+				<port id="3" names="model_12/sequential_41/conv2d_transpose_29/Shape:0" precision="I32">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="70" name="model_12/sequential_41/conv2d_transpose_29/strided_slice/stack" type="Const" version="opset1">
+			<data element_type="i64" offset="2430184" shape="1" size="8"/>
+			<output>
+				<port id="0" names="model_12/sequential_41/conv2d_transpose_29/strided_slice/stack:0" precision="I64">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="71" name="model_12/sequential_41/conv2d_transpose_29/strided_slice/stack_1" type="Const" version="opset1">
+			<data element_type="i64" offset="2430192" shape="1" size="8"/>
+			<output>
+				<port id="0" names="model_12/sequential_41/conv2d_transpose_29/strided_slice/stack_1:0" precision="I64">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="72" name="model_12/sequential_41/conv2d_transpose_29/strided_slice/stack_2" type="Const" version="opset1">
+			<data element_type="i64" offset="2430192" shape="1" size="8"/>
+			<output>
+				<port id="0" names="model_12/sequential_41/conv2d_transpose_29/strided_slice/stack_2:0" precision="I64">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="73" name="model_12/sequential_41/conv2d_transpose_29/strided_slice" type="StridedSlice" version="opset1">
+			<data begin_mask="0" ellipsis_mask="0" end_mask="0" new_axis_mask="0" shrink_axis_mask="1"/>
+			<input>
+				<port id="0" precision="I32">
+					<dim>4</dim>
+				</port>
+				<port id="1" precision="I64">
+					<dim>1</dim>
+				</port>
+				<port id="2" precision="I64">
+					<dim>1</dim>
+				</port>
+				<port id="3" precision="I64">
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="4" names="model_12/sequential_41/conv2d_transpose_29/strided_slice:0" precision="I32"/>
+			</output>
+		</layer>
+		<layer id="74" name="model_12/sequential_41/conv2d_transpose_29/stack/Unsqueeze_input_port_1/value" type="Const" version="opset1">
+			<data element_type="i64" offset="2430184" shape="1" size="8"/>
+			<output>
+				<port id="0" precision="I64">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="75" name="model_12/sequential_41/conv2d_transpose_29/stack/Unsqueeze" type="Unsqueeze" version="opset1">
+			<input>
+				<port id="0" precision="I32"/>
+				<port id="1" precision="I64">
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="I32">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="76" name="model_12/sequential_41/conv2d_transpose_29/stack/Unsqueeze309" type="Const" version="opset1">
+			<data element_type="i32" offset="2430200" shape="1" size="4"/>
+			<output>
+				<port id="0" precision="I32">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="77" name="model_12/sequential_41/conv2d_transpose_29/stack/Unsqueeze311" type="Const" version="opset1">
+			<data element_type="i32" offset="2430200" shape="1" size="4"/>
+			<output>
+				<port id="0" precision="I32">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="78" name="model_12/sequential_41/conv2d_transpose_29/stack/Unsqueeze313" type="Const" version="opset1">
+			<data element_type="i32" offset="2430204" shape="1" size="4"/>
+			<output>
+				<port id="0" precision="I32">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="79" name="model_12/sequential_41/conv2d_transpose_29/stack" type="Concat" version="opset1">
+			<data axis="0"/>
+			<input>
+				<port id="0" precision="I32">
+					<dim>1</dim>
+				</port>
+				<port id="1" precision="I32">
+					<dim>1</dim>
+				</port>
+				<port id="2" precision="I32">
+					<dim>1</dim>
+				</port>
+				<port id="3" precision="I32">
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="4" precision="I32">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="80" name="model_12/sequential_41/conv2d_transpose_29/conv2d_transpose/GatherNHWCtoNCHW_input_port_1/value38207152" type="Const" version="opset1">
+			<data element_type="i32" offset="2430208" shape="4" size="16"/>
+			<output>
+				<port id="0" precision="I32">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="81" name="model_12/sequential_41/conv2d_transpose_29/conv2d_transpose/GatherNHWCtoNCHW_input_port_2/value38227071" type="Const" version="opset1">
+			<data element_type="i64" offset="2430184" shape="" size="8"/>
+			<output>
+				<port id="0" precision="I64"/>
+			</output>
+		</layer>
+		<layer id="82" name="model_12/sequential_41/conv2d_transpose_29/conv2d_transpose/GatherNHWCtoNCHW" type="Gather" version="opset7">
+			<data batch_dims="0"/>
+			<input>
+				<port id="0" precision="I32">
+					<dim>4</dim>
+				</port>
+				<port id="1" precision="I32">
+					<dim>4</dim>
+				</port>
+				<port id="2" precision="I64"/>
+			</input>
+			<output>
+				<port id="3" precision="I32">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="83" name="model_12/sequential_41/conv2d_transpose_29/conv2d_transpose/ss_0_port_input_port_1/value63867128" type="Const" version="opset1">
+			<data element_type="i64" offset="2430224" shape="1" size="8"/>
+			<output>
+				<port id="0" precision="I64">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="84" name="model_12/sequential_41/conv2d_transpose_29/conv2d_transpose/ss_0_port_input_port_2/value63887272" type="Const" version="opset1">
+			<data element_type="i64" offset="2430232" shape="1" size="8"/>
+			<output>
+				<port id="0" precision="I64">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="85" name="model_12/sequential_41/conv2d_transpose_29/conv2d_transpose/ss_0_port_input_port_3/value63907293" type="Const" version="opset1">
+			<data element_type="i64" offset="2430192" shape="1" size="8"/>
+			<output>
+				<port id="0" precision="I64">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="86" name="model_12/sequential_41/conv2d_transpose_29/conv2d_transpose/ss_0_port" type="StridedSlice" version="opset1">
+			<data begin_mask="0" ellipsis_mask="0" end_mask="1" new_axis_mask="0" shrink_axis_mask="0"/>
+			<input>
+				<port id="0" precision="I32">
+					<dim>4</dim>
+				</port>
+				<port id="1" precision="I64">
+					<dim>1</dim>
+				</port>
+				<port id="2" precision="I64">
+					<dim>1</dim>
+				</port>
+				<port id="3" precision="I64">
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="4" precision="I32">
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="87" name="model_12/sequential_41/conv2d_transpose_29/conv2d_transpose/Cast_2" type="Convert" version="opset1">
+			<data destination_type="i64"/>
+			<input>
+				<port id="0" precision="I32">
+					<dim>2</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" precision="I64">
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="88" name="model_12/sequential_41/conv2d_transpose_29/conv2d_transpose" type="ConvolutionBackpropData" version="opset1">
+			<data auto_pad="same_lower" dilations="1, 1" output_padding="0, 0" pads_begin="1, 1" pads_end="1, 1" strides="2, 2"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>8</dim>
+					<dim>8</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>256</dim>
+					<dim>128</dim>
+					<dim>4</dim>
+					<dim>4</dim>
+				</port>
+				<port id="2" precision="I64">
+					<dim>2</dim>
+				</port>
+			</input>
+			<output>
+				<port id="3" names="Func/model_12/sequential_41/instance_normalization_25/StatefulPartitionedCall/StatefulPartitionedCall/input/_55:0,Func/model_12/sequential_41/instance_normalization_25/StatefulPartitionedCall/input/_19:0,model_12/sequential_41/conv2d_transpose_29/conv2d_transpose:0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="89" name="39807083" type="Const" version="opset1">
+			<data element_type="i64" offset="69956" shape="2" size="16"/>
+			<output>
+				<port id="0" precision="I64">
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="90" name="model_12/sequential_41/instance_normalization_25/StatefulPartitionedCall/StatefulPartitionedCall/moments/mean" type="ReduceMean" version="opset1">
+			<data keep_dims="true"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+				<port id="1" precision="I64">
+					<dim>2</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="91" name="model_12/sequential_41/instance_normalization_25/StatefulPartitionedCall/StatefulPartitionedCall/sub/sub" type="Subtract" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/sequential_41/instance_normalization_25/StatefulPartitionedCall/StatefulPartitionedCall/sub:0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="92" name="model_12/sequential_41/instance_normalization_25/StatefulPartitionedCall/StatefulPartitionedCall/moments/SquaredDifference" type="SquaredDifference" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/sequential_41/instance_normalization_25/StatefulPartitionedCall/StatefulPartitionedCall/moments/SquaredDifference:0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="93" name="39867278" type="Const" version="opset1">
+			<data element_type="i64" offset="69956" shape="2" size="16"/>
+			<output>
+				<port id="0" precision="I64">
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="94" name="model_12/sequential_41/instance_normalization_25/StatefulPartitionedCall/StatefulPartitionedCall/moments/variance" type="ReduceMean" version="opset1">
+			<data keep_dims="true"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+				<port id="1" precision="I64">
+					<dim>2</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/sequential_41/instance_normalization_25/StatefulPartitionedCall/StatefulPartitionedCall/moments/variance:0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="95" name="model_12/sequential_41/instance_normalization_25/StatefulPartitionedCall/StatefulPartitionedCall/add/y" type="Const" version="opset1">
+			<data element_type="f16" offset="69972" shape="1, 1, 1, 1" size="2"/>
+			<output>
+				<port id="0" names="model_12/sequential_41/instance_normalization_25/StatefulPartitionedCall/StatefulPartitionedCall/add/y:0" precision="FP16">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="96" name="model_12/sequential_41/instance_normalization_25/StatefulPartitionedCall/StatefulPartitionedCall/add" type="Add" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="97" name="276" type="Const" version="opset1">
+			<data element_type="f16" offset="69974" shape="1, 1, 1, 1" size="2"/>
+			<output>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="98" name="model_12/sequential_41/instance_normalization_25/StatefulPartitionedCall/StatefulPartitionedCall/Rsqrt/pow_" type="Power" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/sequential_41/instance_normalization_25/StatefulPartitionedCall/StatefulPartitionedCall/Rsqrt:0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="99" name="model_12/sequential_41/instance_normalization_25/StatefulPartitionedCall/StatefulPartitionedCall/mul" type="Multiply" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/sequential_41/instance_normalization_25/StatefulPartitionedCall/StatefulPartitionedCall/mul:0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="100" name="model_12/sequential_41/instance_normalization_25/StatefulPartitionedCall/StatefulPartitionedCall/mul_1" type="Multiply" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/sequential_41/instance_normalization_25/StatefulPartitionedCall/StatefulPartitionedCall/mul_1:0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="101" name="model_12/sequential_41/instance_normalization_25/StatefulPartitionedCall/StatefulPartitionedCall/add_1/ReadVariableOp" type="Const" version="opset1">
+			<data element_type="f16" offset="2430240" shape="1, 128, 1, 1" size="256"/>
+			<output>
+				<port id="0" names="model_12/sequential_41/instance_normalization_25/StatefulPartitionedCall/StatefulPartitionedCall/add_1/ReadVariableOp:0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="102" name="model_12/sequential_41/instance_normalization_25/StatefulPartitionedCall/StatefulPartitionedCall/add_1" type="Add" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="Func/model_12/sequential_41/instance_normalization_25/StatefulPartitionedCall/StatefulPartitionedCall/output/_58:0,Func/model_12/sequential_41/instance_normalization_25/StatefulPartitionedCall/output/_22:0,model_12/sequential_41/dropout/Identity:0,model_12/sequential_41/instance_normalization_25/StatefulPartitionedCall/Identity:0,model_12/sequential_41/instance_normalization_25/StatefulPartitionedCall/StatefulPartitionedCall/Identity:0,model_12/sequential_41/instance_normalization_25/StatefulPartitionedCall/StatefulPartitionedCall/add_1:0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="103" name="model_12/sequential_41/re_lu_21/Relu" type="ReLU" version="opset1">
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" names="model_12/sequential_41/re_lu_21/Relu:0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="104" name="model_12/concatenate_13/concat" type="Concat" version="opset1">
+			<data axis="1"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/concatenate_13/concat:0" precision="FP16">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="105" name="model_12/sequential_42/conv2d_transpose_30/conv2d_transpose/ReadVariableOp" type="Const" version="opset1">
+			<data element_type="f16" offset="2430496" shape="256, 64, 4, 4" size="524288"/>
+			<output>
+				<port id="0" names="model_12/sequential_42/conv2d_transpose_30/conv2d_transpose/ReadVariableOp:0" precision="FP16">
+					<dim>256</dim>
+					<dim>64</dim>
+					<dim>4</dim>
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="106" name="model_12/sequential_42/conv2d_transpose_30/Shape" type="ShapeOf" version="opset3">
+			<data output_type="i32"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" precision="I32">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="107" name="model_12/sequential_42/conv2d_transpose_30/Shape/GatherNCHWtoNHWC_input_port_1/value37847305" type="Const" version="opset1">
+			<data element_type="i32" offset="2430168" shape="4" size="16"/>
+			<output>
+				<port id="0" precision="I32">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="108" name="model_12/sequential_42/conv2d_transpose_30/Shape/GatherNCHWtoNHWC_input_port_2/value37867116" type="Const" version="opset1">
+			<data element_type="i64" offset="2430184" shape="" size="8"/>
+			<output>
+				<port id="0" precision="I64"/>
+			</output>
+		</layer>
+		<layer id="109" name="model_12/sequential_42/conv2d_transpose_30/Shape/GatherNCHWtoNHWC" type="Gather" version="opset7">
+			<data batch_dims="0"/>
+			<input>
+				<port id="0" precision="I32">
+					<dim>4</dim>
+				</port>
+				<port id="1" precision="I32">
+					<dim>4</dim>
+				</port>
+				<port id="2" precision="I64"/>
+			</input>
+			<output>
+				<port id="3" names="model_12/sequential_42/conv2d_transpose_30/Shape:0" precision="I32">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="110" name="model_12/sequential_42/conv2d_transpose_30/strided_slice/stack" type="Const" version="opset1">
+			<data element_type="i64" offset="2430184" shape="1" size="8"/>
+			<output>
+				<port id="0" names="model_12/sequential_42/conv2d_transpose_30/strided_slice/stack:0" precision="I64">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="111" name="model_12/sequential_42/conv2d_transpose_30/strided_slice/stack_1" type="Const" version="opset1">
+			<data element_type="i64" offset="2430192" shape="1" size="8"/>
+			<output>
+				<port id="0" names="model_12/sequential_42/conv2d_transpose_30/strided_slice/stack_1:0" precision="I64">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="112" name="model_12/sequential_42/conv2d_transpose_30/strided_slice/stack_2" type="Const" version="opset1">
+			<data element_type="i64" offset="2430192" shape="1" size="8"/>
+			<output>
+				<port id="0" names="model_12/sequential_42/conv2d_transpose_30/strided_slice/stack_2:0" precision="I64">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="113" name="model_12/sequential_42/conv2d_transpose_30/strided_slice" type="StridedSlice" version="opset1">
+			<data begin_mask="0" ellipsis_mask="0" end_mask="0" new_axis_mask="0" shrink_axis_mask="1"/>
+			<input>
+				<port id="0" precision="I32">
+					<dim>4</dim>
+				</port>
+				<port id="1" precision="I64">
+					<dim>1</dim>
+				</port>
+				<port id="2" precision="I64">
+					<dim>1</dim>
+				</port>
+				<port id="3" precision="I64">
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="4" names="model_12/sequential_42/conv2d_transpose_30/strided_slice:0" precision="I32"/>
+			</output>
+		</layer>
+		<layer id="114" name="model_12/sequential_42/conv2d_transpose_30/stack/Unsqueeze_input_port_1/value" type="Const" version="opset1">
+			<data element_type="i64" offset="2430184" shape="1" size="8"/>
+			<output>
+				<port id="0" precision="I64">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="115" name="model_12/sequential_42/conv2d_transpose_30/stack/Unsqueeze" type="Unsqueeze" version="opset1">
+			<input>
+				<port id="0" precision="I32"/>
+				<port id="1" precision="I64">
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="I32">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="116" name="model_12/sequential_42/conv2d_transpose_30/stack/Unsqueeze291" type="Const" version="opset1">
+			<data element_type="i32" offset="2954784" shape="1" size="4"/>
+			<output>
+				<port id="0" precision="I32">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="117" name="model_12/sequential_42/conv2d_transpose_30/stack/Unsqueeze293" type="Const" version="opset1">
+			<data element_type="i32" offset="2954784" shape="1" size="4"/>
+			<output>
+				<port id="0" precision="I32">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="118" name="model_12/sequential_42/conv2d_transpose_30/stack/Unsqueeze295" type="Const" version="opset1">
+			<data element_type="i32" offset="2954788" shape="1" size="4"/>
+			<output>
+				<port id="0" precision="I32">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="119" name="model_12/sequential_42/conv2d_transpose_30/stack" type="Concat" version="opset1">
+			<data axis="0"/>
+			<input>
+				<port id="0" precision="I32">
+					<dim>1</dim>
+				</port>
+				<port id="1" precision="I32">
+					<dim>1</dim>
+				</port>
+				<port id="2" precision="I32">
+					<dim>1</dim>
+				</port>
+				<port id="3" precision="I32">
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="4" precision="I32">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="120" name="model_12/sequential_42/conv2d_transpose_30/conv2d_transpose/GatherNHWCtoNCHW_input_port_1/value38147200" type="Const" version="opset1">
+			<data element_type="i32" offset="2430208" shape="4" size="16"/>
+			<output>
+				<port id="0" precision="I32">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="121" name="model_12/sequential_42/conv2d_transpose_30/conv2d_transpose/GatherNHWCtoNCHW_input_port_2/value38167296" type="Const" version="opset1">
+			<data element_type="i64" offset="2430184" shape="" size="8"/>
+			<output>
+				<port id="0" precision="I64"/>
+			</output>
+		</layer>
+		<layer id="122" name="model_12/sequential_42/conv2d_transpose_30/conv2d_transpose/GatherNHWCtoNCHW" type="Gather" version="opset7">
+			<data batch_dims="0"/>
+			<input>
+				<port id="0" precision="I32">
+					<dim>4</dim>
+				</port>
+				<port id="1" precision="I32">
+					<dim>4</dim>
+				</port>
+				<port id="2" precision="I64"/>
+			</input>
+			<output>
+				<port id="3" precision="I32">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="123" name="model_12/sequential_42/conv2d_transpose_30/conv2d_transpose/ss_0_port_input_port_1/value63947317" type="Const" version="opset1">
+			<data element_type="i64" offset="2430224" shape="1" size="8"/>
+			<output>
+				<port id="0" precision="I64">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="124" name="model_12/sequential_42/conv2d_transpose_30/conv2d_transpose/ss_0_port_input_port_2/value63967335" type="Const" version="opset1">
+			<data element_type="i64" offset="2430232" shape="1" size="8"/>
+			<output>
+				<port id="0" precision="I64">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="125" name="model_12/sequential_42/conv2d_transpose_30/conv2d_transpose/ss_0_port_input_port_3/value63987206" type="Const" version="opset1">
+			<data element_type="i64" offset="2430192" shape="1" size="8"/>
+			<output>
+				<port id="0" precision="I64">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="126" name="model_12/sequential_42/conv2d_transpose_30/conv2d_transpose/ss_0_port" type="StridedSlice" version="opset1">
+			<data begin_mask="0" ellipsis_mask="0" end_mask="1" new_axis_mask="0" shrink_axis_mask="0"/>
+			<input>
+				<port id="0" precision="I32">
+					<dim>4</dim>
+				</port>
+				<port id="1" precision="I64">
+					<dim>1</dim>
+				</port>
+				<port id="2" precision="I64">
+					<dim>1</dim>
+				</port>
+				<port id="3" precision="I64">
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="4" precision="I32">
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="127" name="model_12/sequential_42/conv2d_transpose_30/conv2d_transpose/Cast_2" type="Convert" version="opset1">
+			<data destination_type="i64"/>
+			<input>
+				<port id="0" precision="I32">
+					<dim>2</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" precision="I64">
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="128" name="model_12/sequential_42/conv2d_transpose_30/conv2d_transpose" type="ConvolutionBackpropData" version="opset1">
+			<data auto_pad="same_lower" dilations="1, 1" output_padding="0, 0" pads_begin="1, 1" pads_end="1, 1" strides="2, 2"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>16</dim>
+					<dim>16</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>256</dim>
+					<dim>64</dim>
+					<dim>4</dim>
+					<dim>4</dim>
+				</port>
+				<port id="2" precision="I64">
+					<dim>2</dim>
+				</port>
+			</input>
+			<output>
+				<port id="3" names="Func/model_12/sequential_42/instance_normalization_26/StatefulPartitionedCall/StatefulPartitionedCall/input/_61:0,Func/model_12/sequential_42/instance_normalization_26/StatefulPartitionedCall/input/_25:0,model_12/sequential_42/conv2d_transpose_30/conv2d_transpose:0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="129" name="39967221" type="Const" version="opset1">
+			<data element_type="i64" offset="69956" shape="2" size="16"/>
+			<output>
+				<port id="0" precision="I64">
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="130" name="model_12/sequential_42/instance_normalization_26/StatefulPartitionedCall/StatefulPartitionedCall/moments/mean" type="ReduceMean" version="opset1">
+			<data keep_dims="true"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+				<port id="1" precision="I64">
+					<dim>2</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="131" name="model_12/sequential_42/instance_normalization_26/StatefulPartitionedCall/StatefulPartitionedCall/sub/sub" type="Subtract" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/sequential_42/instance_normalization_26/StatefulPartitionedCall/StatefulPartitionedCall/sub:0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="132" name="model_12/sequential_42/instance_normalization_26/StatefulPartitionedCall/StatefulPartitionedCall/moments/SquaredDifference" type="SquaredDifference" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/sequential_42/instance_normalization_26/StatefulPartitionedCall/StatefulPartitionedCall/moments/SquaredDifference:0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="133" name="40027122" type="Const" version="opset1">
+			<data element_type="i64" offset="69956" shape="2" size="16"/>
+			<output>
+				<port id="0" precision="I64">
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="134" name="model_12/sequential_42/instance_normalization_26/StatefulPartitionedCall/StatefulPartitionedCall/moments/variance" type="ReduceMean" version="opset1">
+			<data keep_dims="true"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+				<port id="1" precision="I64">
+					<dim>2</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/sequential_42/instance_normalization_26/StatefulPartitionedCall/StatefulPartitionedCall/moments/variance:0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="135" name="model_12/sequential_42/instance_normalization_26/StatefulPartitionedCall/StatefulPartitionedCall/add/y" type="Const" version="opset1">
+			<data element_type="f16" offset="69972" shape="1, 1, 1, 1" size="2"/>
+			<output>
+				<port id="0" names="model_12/sequential_42/instance_normalization_26/StatefulPartitionedCall/StatefulPartitionedCall/add/y:0" precision="FP16">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="136" name="model_12/sequential_42/instance_normalization_26/StatefulPartitionedCall/StatefulPartitionedCall/add" type="Add" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="137" name="284" type="Const" version="opset1">
+			<data element_type="f16" offset="69974" shape="1, 1, 1, 1" size="2"/>
+			<output>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="138" name="model_12/sequential_42/instance_normalization_26/StatefulPartitionedCall/StatefulPartitionedCall/Rsqrt/pow_" type="Power" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/sequential_42/instance_normalization_26/StatefulPartitionedCall/StatefulPartitionedCall/Rsqrt:0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="139" name="model_12/sequential_42/instance_normalization_26/StatefulPartitionedCall/StatefulPartitionedCall/mul" type="Multiply" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/sequential_42/instance_normalization_26/StatefulPartitionedCall/StatefulPartitionedCall/mul:0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="140" name="model_12/sequential_42/instance_normalization_26/StatefulPartitionedCall/StatefulPartitionedCall/mul_1" type="Multiply" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/sequential_42/instance_normalization_26/StatefulPartitionedCall/StatefulPartitionedCall/mul_1:0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="141" name="model_12/sequential_42/instance_normalization_26/StatefulPartitionedCall/StatefulPartitionedCall/add_1/ReadVariableOp" type="Const" version="opset1">
+			<data element_type="f16" offset="2954792" shape="1, 64, 1, 1" size="128"/>
+			<output>
+				<port id="0" names="model_12/sequential_42/instance_normalization_26/StatefulPartitionedCall/StatefulPartitionedCall/add_1/ReadVariableOp:0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="142" name="model_12/sequential_42/instance_normalization_26/StatefulPartitionedCall/StatefulPartitionedCall/add_1" type="Add" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="Func/model_12/sequential_42/instance_normalization_26/StatefulPartitionedCall/StatefulPartitionedCall/output/_64:0,Func/model_12/sequential_42/instance_normalization_26/StatefulPartitionedCall/output/_28:0,model_12/sequential_42/instance_normalization_26/StatefulPartitionedCall/Identity:0,model_12/sequential_42/instance_normalization_26/StatefulPartitionedCall/StatefulPartitionedCall/Identity:0,model_12/sequential_42/instance_normalization_26/StatefulPartitionedCall/StatefulPartitionedCall/add_1:0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="143" name="model_12/sequential_42/re_lu_22/Relu" type="ReLU" version="opset1">
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" names="model_12/sequential_42/re_lu_22/Relu:0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="144" name="model_12/concatenate_13/concat_1" type="Concat" version="opset1">
+			<data axis="1"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/concatenate_13/concat_1:0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="145" name="model_12/sequential_43/conv2d_transpose_31/conv2d_transpose/ReadVariableOp" type="Const" version="opset1">
+			<data element_type="f16" offset="2954920" shape="128, 32, 4, 4" size="131072"/>
+			<output>
+				<port id="0" names="model_12/sequential_43/conv2d_transpose_31/conv2d_transpose/ReadVariableOp:0" precision="FP16">
+					<dim>128</dim>
+					<dim>32</dim>
+					<dim>4</dim>
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="146" name="model_12/sequential_43/conv2d_transpose_31/Shape" type="ShapeOf" version="opset3">
+			<data output_type="i32"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" precision="I32">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="147" name="model_12/sequential_43/conv2d_transpose_31/Shape/GatherNCHWtoNHWC_input_port_1/value37907176" type="Const" version="opset1">
+			<data element_type="i32" offset="2430168" shape="4" size="16"/>
+			<output>
+				<port id="0" precision="I32">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="148" name="model_12/sequential_43/conv2d_transpose_31/Shape/GatherNCHWtoNHWC_input_port_2/value37927281" type="Const" version="opset1">
+			<data element_type="i64" offset="2430184" shape="" size="8"/>
+			<output>
+				<port id="0" precision="I64"/>
+			</output>
+		</layer>
+		<layer id="149" name="model_12/sequential_43/conv2d_transpose_31/Shape/GatherNCHWtoNHWC" type="Gather" version="opset7">
+			<data batch_dims="0"/>
+			<input>
+				<port id="0" precision="I32">
+					<dim>4</dim>
+				</port>
+				<port id="1" precision="I32">
+					<dim>4</dim>
+				</port>
+				<port id="2" precision="I64"/>
+			</input>
+			<output>
+				<port id="3" names="model_12/sequential_43/conv2d_transpose_31/Shape:0" precision="I32">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="150" name="model_12/sequential_43/conv2d_transpose_31/strided_slice/stack" type="Const" version="opset1">
+			<data element_type="i64" offset="2430184" shape="1" size="8"/>
+			<output>
+				<port id="0" names="model_12/sequential_43/conv2d_transpose_31/strided_slice/stack:0" precision="I64">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="151" name="model_12/sequential_43/conv2d_transpose_31/strided_slice/stack_1" type="Const" version="opset1">
+			<data element_type="i64" offset="2430192" shape="1" size="8"/>
+			<output>
+				<port id="0" names="model_12/sequential_43/conv2d_transpose_31/strided_slice/stack_1:0" precision="I64">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="152" name="model_12/sequential_43/conv2d_transpose_31/strided_slice/stack_2" type="Const" version="opset1">
+			<data element_type="i64" offset="2430192" shape="1" size="8"/>
+			<output>
+				<port id="0" names="model_12/sequential_43/conv2d_transpose_31/strided_slice/stack_2:0" precision="I64">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="153" name="model_12/sequential_43/conv2d_transpose_31/strided_slice" type="StridedSlice" version="opset1">
+			<data begin_mask="0" ellipsis_mask="0" end_mask="0" new_axis_mask="0" shrink_axis_mask="1"/>
+			<input>
+				<port id="0" precision="I32">
+					<dim>4</dim>
+				</port>
+				<port id="1" precision="I64">
+					<dim>1</dim>
+				</port>
+				<port id="2" precision="I64">
+					<dim>1</dim>
+				</port>
+				<port id="3" precision="I64">
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="4" names="model_12/sequential_43/conv2d_transpose_31/strided_slice:0" precision="I32"/>
+			</output>
+		</layer>
+		<layer id="154" name="model_12/sequential_43/conv2d_transpose_31/stack/Unsqueeze_input_port_1/value" type="Const" version="opset1">
+			<data element_type="i64" offset="2430184" shape="1" size="8"/>
+			<output>
+				<port id="0" precision="I64">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="155" name="model_12/sequential_43/conv2d_transpose_31/stack/Unsqueeze" type="Unsqueeze" version="opset1">
+			<input>
+				<port id="0" precision="I32"/>
+				<port id="1" precision="I64">
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="I32">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="156" name="model_12/sequential_43/conv2d_transpose_31/stack/Unsqueeze300" type="Const" version="opset1">
+			<data element_type="i32" offset="2954788" shape="1" size="4"/>
+			<output>
+				<port id="0" precision="I32">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="157" name="model_12/sequential_43/conv2d_transpose_31/stack/Unsqueeze302" type="Const" version="opset1">
+			<data element_type="i32" offset="2954788" shape="1" size="4"/>
+			<output>
+				<port id="0" precision="I32">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="158" name="model_12/sequential_43/conv2d_transpose_31/stack/Unsqueeze304" type="Const" version="opset1">
+			<data element_type="i32" offset="2954784" shape="1" size="4"/>
+			<output>
+				<port id="0" precision="I32">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="159" name="model_12/sequential_43/conv2d_transpose_31/stack" type="Concat" version="opset1">
+			<data axis="0"/>
+			<input>
+				<port id="0" precision="I32">
+					<dim>1</dim>
+				</port>
+				<port id="1" precision="I32">
+					<dim>1</dim>
+				</port>
+				<port id="2" precision="I32">
+					<dim>1</dim>
+				</port>
+				<port id="3" precision="I32">
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="4" precision="I32">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="160" name="model_12/sequential_43/conv2d_transpose_31/conv2d_transpose/GatherNHWCtoNCHW_input_port_1/value38027248" type="Const" version="opset1">
+			<data element_type="i32" offset="2430208" shape="4" size="16"/>
+			<output>
+				<port id="0" precision="I32">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="161" name="model_12/sequential_43/conv2d_transpose_31/conv2d_transpose/GatherNHWCtoNCHW_input_port_2/value38047089" type="Const" version="opset1">
+			<data element_type="i64" offset="2430184" shape="" size="8"/>
+			<output>
+				<port id="0" precision="I64"/>
+			</output>
+		</layer>
+		<layer id="162" name="model_12/sequential_43/conv2d_transpose_31/conv2d_transpose/GatherNHWCtoNCHW" type="Gather" version="opset7">
+			<data batch_dims="0"/>
+			<input>
+				<port id="0" precision="I32">
+					<dim>4</dim>
+				</port>
+				<port id="1" precision="I32">
+					<dim>4</dim>
+				</port>
+				<port id="2" precision="I64"/>
+			</input>
+			<output>
+				<port id="3" precision="I32">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="163" name="model_12/sequential_43/conv2d_transpose_31/conv2d_transpose/ss_0_port_input_port_1/value64027227" type="Const" version="opset1">
+			<data element_type="i64" offset="2430224" shape="1" size="8"/>
+			<output>
+				<port id="0" precision="I64">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="164" name="model_12/sequential_43/conv2d_transpose_31/conv2d_transpose/ss_0_port_input_port_2/value64047056" type="Const" version="opset1">
+			<data element_type="i64" offset="2430232" shape="1" size="8"/>
+			<output>
+				<port id="0" precision="I64">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="165" name="model_12/sequential_43/conv2d_transpose_31/conv2d_transpose/ss_0_port_input_port_3/value64067266" type="Const" version="opset1">
+			<data element_type="i64" offset="2430192" shape="1" size="8"/>
+			<output>
+				<port id="0" precision="I64">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="166" name="model_12/sequential_43/conv2d_transpose_31/conv2d_transpose/ss_0_port" type="StridedSlice" version="opset1">
+			<data begin_mask="0" ellipsis_mask="0" end_mask="1" new_axis_mask="0" shrink_axis_mask="0"/>
+			<input>
+				<port id="0" precision="I32">
+					<dim>4</dim>
+				</port>
+				<port id="1" precision="I64">
+					<dim>1</dim>
+				</port>
+				<port id="2" precision="I64">
+					<dim>1</dim>
+				</port>
+				<port id="3" precision="I64">
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="4" precision="I32">
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="167" name="model_12/sequential_43/conv2d_transpose_31/conv2d_transpose/Cast_2" type="Convert" version="opset1">
+			<data destination_type="i64"/>
+			<input>
+				<port id="0" precision="I32">
+					<dim>2</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" precision="I64">
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="168" name="model_12/sequential_43/conv2d_transpose_31/conv2d_transpose" type="ConvolutionBackpropData" version="opset1">
+			<data auto_pad="same_lower" dilations="1, 1" output_padding="0, 0" pads_begin="1, 1" pads_end="1, 1" strides="2, 2"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>32</dim>
+					<dim>32</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>128</dim>
+					<dim>32</dim>
+					<dim>4</dim>
+					<dim>4</dim>
+				</port>
+				<port id="2" precision="I64">
+					<dim>2</dim>
+				</port>
+			</input>
+			<output>
+				<port id="3" names="Func/model_12/sequential_43/instance_normalization_27/StatefulPartitionedCall/StatefulPartitionedCall/input/_67:0,Func/model_12/sequential_43/instance_normalization_27/StatefulPartitionedCall/input/_31:0,model_12/sequential_43/conv2d_transpose_31/conv2d_transpose:0" precision="FP16">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="169" name="40127308" type="Const" version="opset1">
+			<data element_type="i64" offset="69956" shape="2" size="16"/>
+			<output>
+				<port id="0" precision="I64">
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="170" name="model_12/sequential_43/instance_normalization_27/StatefulPartitionedCall/StatefulPartitionedCall/moments/mean" type="ReduceMean" version="opset1">
+			<data keep_dims="true"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+				<port id="1" precision="I64">
+					<dim>2</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP16">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="171" name="model_12/sequential_43/instance_normalization_27/StatefulPartitionedCall/StatefulPartitionedCall/sub/sub" type="Subtract" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/sequential_43/instance_normalization_27/StatefulPartitionedCall/StatefulPartitionedCall/sub:0" precision="FP16">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="172" name="model_12/sequential_43/instance_normalization_27/StatefulPartitionedCall/StatefulPartitionedCall/moments/SquaredDifference" type="SquaredDifference" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/sequential_43/instance_normalization_27/StatefulPartitionedCall/StatefulPartitionedCall/moments/SquaredDifference:0" precision="FP16">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="173" name="40187254" type="Const" version="opset1">
+			<data element_type="i64" offset="69956" shape="2" size="16"/>
+			<output>
+				<port id="0" precision="I64">
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="174" name="model_12/sequential_43/instance_normalization_27/StatefulPartitionedCall/StatefulPartitionedCall/moments/variance" type="ReduceMean" version="opset1">
+			<data keep_dims="true"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+				<port id="1" precision="I64">
+					<dim>2</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/sequential_43/instance_normalization_27/StatefulPartitionedCall/StatefulPartitionedCall/moments/variance:0" precision="FP16">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="175" name="model_12/sequential_43/instance_normalization_27/StatefulPartitionedCall/StatefulPartitionedCall/add/y" type="Const" version="opset1">
+			<data element_type="f16" offset="69972" shape="1, 1, 1, 1" size="2"/>
+			<output>
+				<port id="0" names="model_12/sequential_43/instance_normalization_27/StatefulPartitionedCall/StatefulPartitionedCall/add/y:0" precision="FP16">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="176" name="model_12/sequential_43/instance_normalization_27/StatefulPartitionedCall/StatefulPartitionedCall/add" type="Add" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP16">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="177" name="282" type="Const" version="opset1">
+			<data element_type="f16" offset="69974" shape="1, 1, 1, 1" size="2"/>
+			<output>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="178" name="model_12/sequential_43/instance_normalization_27/StatefulPartitionedCall/StatefulPartitionedCall/Rsqrt/pow_" type="Power" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/sequential_43/instance_normalization_27/StatefulPartitionedCall/StatefulPartitionedCall/Rsqrt:0" precision="FP16">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="179" name="model_12/sequential_43/instance_normalization_27/StatefulPartitionedCall/StatefulPartitionedCall/mul" type="Multiply" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/sequential_43/instance_normalization_27/StatefulPartitionedCall/StatefulPartitionedCall/mul:0" precision="FP16">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="180" name="model_12/sequential_43/instance_normalization_27/StatefulPartitionedCall/StatefulPartitionedCall/mul_1" type="Multiply" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/sequential_43/instance_normalization_27/StatefulPartitionedCall/StatefulPartitionedCall/mul_1:0" precision="FP16">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="181" name="model_12/sequential_43/instance_normalization_27/StatefulPartitionedCall/StatefulPartitionedCall/add_1/ReadVariableOp" type="Const" version="opset1">
+			<data element_type="f16" offset="3085992" shape="1, 32, 1, 1" size="64"/>
+			<output>
+				<port id="0" names="model_12/sequential_43/instance_normalization_27/StatefulPartitionedCall/StatefulPartitionedCall/add_1/ReadVariableOp:0" precision="FP16">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="182" name="model_12/sequential_43/instance_normalization_27/StatefulPartitionedCall/StatefulPartitionedCall/add_1" type="Add" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="Func/model_12/sequential_43/instance_normalization_27/StatefulPartitionedCall/StatefulPartitionedCall/output/_70:0,Func/model_12/sequential_43/instance_normalization_27/StatefulPartitionedCall/output/_34:0,model_12/sequential_43/instance_normalization_27/StatefulPartitionedCall/Identity:0,model_12/sequential_43/instance_normalization_27/StatefulPartitionedCall/StatefulPartitionedCall/Identity:0,model_12/sequential_43/instance_normalization_27/StatefulPartitionedCall/StatefulPartitionedCall/add_1:0" precision="FP16">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="183" name="model_12/sequential_43/re_lu_23/Relu" type="ReLU" version="opset1">
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" names="model_12/sequential_43/re_lu_23/Relu:0" precision="FP16">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="184" name="model_12/concatenate_13/concat_2" type="Concat" version="opset1">
+			<data axis="1"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/concatenate_13/concat_2:0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="185" name="model_12/conv2d_transpose_32/conv2d_transpose/ReadVariableOp" type="Const" version="opset1">
+			<data element_type="f16" offset="3086056" shape="64, 1, 4, 4" size="2048"/>
+			<output>
+				<port id="0" names="model_12/conv2d_transpose_32/conv2d_transpose/ReadVariableOp:0" precision="FP16">
+					<dim>64</dim>
+					<dim>1</dim>
+					<dim>4</dim>
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="186" name="model_12/conv2d_transpose_32/Shape" type="ShapeOf" version="opset3">
+			<data output_type="i32"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" precision="I32">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="187" name="model_12/conv2d_transpose_32/Shape/GatherNCHWtoNHWC_input_port_1/value37967329" type="Const" version="opset1">
+			<data element_type="i32" offset="2430168" shape="4" size="16"/>
+			<output>
+				<port id="0" precision="I32">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="188" name="model_12/conv2d_transpose_32/Shape/GatherNCHWtoNHWC_input_port_2/value37987233" type="Const" version="opset1">
+			<data element_type="i64" offset="2430184" shape="" size="8"/>
+			<output>
+				<port id="0" precision="I64"/>
+			</output>
+		</layer>
+		<layer id="189" name="model_12/conv2d_transpose_32/Shape/GatherNCHWtoNHWC" type="Gather" version="opset7">
+			<data batch_dims="0"/>
+			<input>
+				<port id="0" precision="I32">
+					<dim>4</dim>
+				</port>
+				<port id="1" precision="I32">
+					<dim>4</dim>
+				</port>
+				<port id="2" precision="I64"/>
+			</input>
+			<output>
+				<port id="3" names="model_12/conv2d_transpose_32/Shape:0" precision="I32">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="190" name="model_12/conv2d_transpose_32/strided_slice/stack" type="Const" version="opset1">
+			<data element_type="i64" offset="2430184" shape="1" size="8"/>
+			<output>
+				<port id="0" names="model_12/conv2d_transpose_32/strided_slice/stack:0" precision="I64">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="191" name="model_12/conv2d_transpose_32/strided_slice/stack_1" type="Const" version="opset1">
+			<data element_type="i64" offset="2430192" shape="1" size="8"/>
+			<output>
+				<port id="0" names="model_12/conv2d_transpose_32/strided_slice/stack_1:0" precision="I64">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="192" name="model_12/conv2d_transpose_32/strided_slice/stack_2" type="Const" version="opset1">
+			<data element_type="i64" offset="2430192" shape="1" size="8"/>
+			<output>
+				<port id="0" names="model_12/conv2d_transpose_32/strided_slice/stack_2:0" precision="I64">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="193" name="model_12/conv2d_transpose_32/strided_slice" type="StridedSlice" version="opset1">
+			<data begin_mask="0" ellipsis_mask="0" end_mask="0" new_axis_mask="0" shrink_axis_mask="1"/>
+			<input>
+				<port id="0" precision="I32">
+					<dim>4</dim>
+				</port>
+				<port id="1" precision="I64">
+					<dim>1</dim>
+				</port>
+				<port id="2" precision="I64">
+					<dim>1</dim>
+				</port>
+				<port id="3" precision="I64">
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="4" names="model_12/conv2d_transpose_32/strided_slice:0" precision="I32"/>
+			</output>
+		</layer>
+		<layer id="194" name="model_12/conv2d_transpose_32/stack/Unsqueeze_input_port_1/value" type="Const" version="opset1">
+			<data element_type="i64" offset="2430184" shape="1" size="8"/>
+			<output>
+				<port id="0" precision="I64">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="195" name="model_12/conv2d_transpose_32/stack/Unsqueeze" type="Unsqueeze" version="opset1">
+			<input>
+				<port id="0" precision="I32"/>
+				<port id="1" precision="I64">
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="I32">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="196" name="model_12/conv2d_transpose_32/stack/Unsqueeze318" type="Const" version="opset1">
+			<data element_type="i32" offset="2430204" shape="1" size="4"/>
+			<output>
+				<port id="0" precision="I32">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="197" name="model_12/conv2d_transpose_32/stack/Unsqueeze320" type="Const" version="opset1">
+			<data element_type="i32" offset="2430204" shape="1" size="4"/>
+			<output>
+				<port id="0" precision="I32">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="198" name="model_12/conv2d_transpose_32/stack/Unsqueeze322" type="Const" version="opset1">
+			<data element_type="i32" offset="3088104" shape="1" size="4"/>
+			<output>
+				<port id="0" precision="I32">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="199" name="model_12/conv2d_transpose_32/stack" type="Concat" version="opset1">
+			<data axis="0"/>
+			<input>
+				<port id="0" precision="I32">
+					<dim>1</dim>
+				</port>
+				<port id="1" precision="I32">
+					<dim>1</dim>
+				</port>
+				<port id="2" precision="I32">
+					<dim>1</dim>
+				</port>
+				<port id="3" precision="I32">
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="4" precision="I32">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="200" name="model_12/conv2d_transpose_32/conv2d_transpose/GatherNHWCtoNCHW_input_port_1/value38087242" type="Const" version="opset1">
+			<data element_type="i32" offset="2430208" shape="4" size="16"/>
+			<output>
+				<port id="0" precision="I32">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="201" name="model_12/conv2d_transpose_32/conv2d_transpose/GatherNHWCtoNCHW_input_port_2/value38107362" type="Const" version="opset1">
+			<data element_type="i64" offset="2430184" shape="" size="8"/>
+			<output>
+				<port id="0" precision="I64"/>
+			</output>
+		</layer>
+		<layer id="202" name="model_12/conv2d_transpose_32/conv2d_transpose/GatherNHWCtoNCHW" type="Gather" version="opset7">
+			<data batch_dims="0"/>
+			<input>
+				<port id="0" precision="I32">
+					<dim>4</dim>
+				</port>
+				<port id="1" precision="I32">
+					<dim>4</dim>
+				</port>
+				<port id="2" precision="I64"/>
+			</input>
+			<output>
+				<port id="3" precision="I32">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="203" name="model_12/conv2d_transpose_32/conv2d_transpose/ss_0_port_input_port_1/value63787104" type="Const" version="opset1">
+			<data element_type="i64" offset="2430224" shape="1" size="8"/>
+			<output>
+				<port id="0" precision="I64">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="204" name="model_12/conv2d_transpose_32/conv2d_transpose/ss_0_port_input_port_2/value63807224" type="Const" version="opset1">
+			<data element_type="i64" offset="2430232" shape="1" size="8"/>
+			<output>
+				<port id="0" precision="I64">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="205" name="model_12/conv2d_transpose_32/conv2d_transpose/ss_0_port_input_port_3/value63827107" type="Const" version="opset1">
+			<data element_type="i64" offset="2430192" shape="1" size="8"/>
+			<output>
+				<port id="0" precision="I64">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="206" name="model_12/conv2d_transpose_32/conv2d_transpose/ss_0_port" type="StridedSlice" version="opset1">
+			<data begin_mask="0" ellipsis_mask="0" end_mask="1" new_axis_mask="0" shrink_axis_mask="0"/>
+			<input>
+				<port id="0" precision="I32">
+					<dim>4</dim>
+				</port>
+				<port id="1" precision="I64">
+					<dim>1</dim>
+				</port>
+				<port id="2" precision="I64">
+					<dim>1</dim>
+				</port>
+				<port id="3" precision="I64">
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="4" precision="I32">
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="207" name="model_12/conv2d_transpose_32/conv2d_transpose/Cast_2" type="Convert" version="opset1">
+			<data destination_type="i64"/>
+			<input>
+				<port id="0" precision="I32">
+					<dim>2</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" precision="I64">
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="208" name="model_12/conv2d_transpose_32/conv2d_transpose" type="ConvolutionBackpropData" version="opset1">
+			<data auto_pad="same_lower" dilations="1, 1" output_padding="0, 0" pads_begin="1, 1" pads_end="1, 1" strides="2, 2"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>64</dim>
+					<dim>1</dim>
+					<dim>4</dim>
+					<dim>4</dim>
+				</port>
+				<port id="2" precision="I64">
+					<dim>2</dim>
+				</port>
+			</input>
+			<output>
+				<port id="3" names="model_12/conv2d_transpose_32/conv2d_transpose:0" precision="FP16">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>128</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="209" name="model_12/conv2d_transpose_32/BiasAdd/ReadVariableOp" type="Const" version="opset1">
+			<data element_type="f16" offset="3088108" shape="1, 1, 1, 1" size="2"/>
+			<output>
+				<port id="0" names="model_12/conv2d_transpose_32/BiasAdd/ReadVariableOp:0" precision="FP16">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="210" name="model_12/conv2d_transpose_32/BiasAdd/Add" type="Add" version="opset1">
+			<data auto_broadcast="numpy"/>
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>128</dim>
+				</port>
+				<port id="1" precision="FP16">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" names="model_12/conv2d_transpose_32/BiasAdd:0" precision="FP16">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>128</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="211" name="model_12/conv2d_transpose_32/Sigmoid" type="Sigmoid" version="opset1">
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>128</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" names="Identity:0,model_12/conv2d_transpose_32/Sigmoid:0" precision="FP16">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>128</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="212" name="Identity:0" type="Result" version="opset1">
+			<input>
+				<port id="0" precision="FP16">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>128</dim>
+				</port>
+			</input>
+		</layer>
+	</layers>
+	<edges>
+		<edge from-layer="0" from-port="0" to-layer="8" to-port="0"/>
+		<edge from-layer="1" from-port="0" to-layer="180" to-port="0"/>
+		<edge from-layer="2" from-port="0" to-layer="140" to-port="0"/>
+		<edge from-layer="3" from-port="0" to-layer="100" to-port="0"/>
+		<edge from-layer="4" from-port="0" to-layer="60" to-port="0"/>
+		<edge from-layer="5" from-port="0" to-layer="42" to-port="0"/>
+		<edge from-layer="6" from-port="0" to-layer="24" to-port="0"/>
+		<edge from-layer="7" from-port="0" to-layer="8" to-port="1"/>
+		<edge from-layer="8" from-port="2" to-layer="10" to-port="0"/>
+		<edge from-layer="9" from-port="0" to-layer="10" to-port="1"/>
+		<edge from-layer="10" from-port="2" to-layer="12" to-port="0"/>
+		<edge from-layer="10" from-port="2" to-layer="184" to-port="1"/>
+		<edge from-layer="11" from-port="0" to-layer="12" to-port="1"/>
+		<edge from-layer="12" from-port="2" to-layer="16" to-port="0"/>
+		<edge from-layer="12" from-port="2" to-layer="14" to-port="0"/>
+		<edge from-layer="12" from-port="2" to-layer="15" to-port="0"/>
+		<edge from-layer="13" from-port="0" to-layer="14" to-port="1"/>
+		<edge from-layer="14" from-port="2" to-layer="15" to-port="1"/>
+		<edge from-layer="14" from-port="2" to-layer="16" to-port="1"/>
+		<edge from-layer="15" from-port="2" to-layer="23" to-port="0"/>
+		<edge from-layer="16" from-port="2" to-layer="18" to-port="0"/>
+		<edge from-layer="17" from-port="0" to-layer="18" to-port="1"/>
+		<edge from-layer="18" from-port="2" to-layer="20" to-port="0"/>
+		<edge from-layer="19" from-port="0" to-layer="20" to-port="1"/>
+		<edge from-layer="20" from-port="2" to-layer="22" to-port="0"/>
+		<edge from-layer="21" from-port="0" to-layer="22" to-port="1"/>
+		<edge from-layer="22" from-port="2" to-layer="23" to-port="1"/>
+		<edge from-layer="23" from-port="2" to-layer="24" to-port="1"/>
+		<edge from-layer="24" from-port="2" to-layer="26" to-port="0"/>
+		<edge from-layer="25" from-port="0" to-layer="26" to-port="1"/>
+		<edge from-layer="26" from-port="2" to-layer="28" to-port="0"/>
+		<edge from-layer="27" from-port="0" to-layer="28" to-port="1"/>
+		<edge from-layer="28" from-port="2" to-layer="30" to-port="0"/>
+		<edge from-layer="28" from-port="2" to-layer="144" to-port="1"/>
+		<edge from-layer="29" from-port="0" to-layer="30" to-port="1"/>
+		<edge from-layer="30" from-port="2" to-layer="32" to-port="0"/>
+		<edge from-layer="30" from-port="2" to-layer="33" to-port="0"/>
+		<edge from-layer="30" from-port="2" to-layer="34" to-port="0"/>
+		<edge from-layer="31" from-port="0" to-layer="32" to-port="1"/>
+		<edge from-layer="32" from-port="2" to-layer="33" to-port="1"/>
+		<edge from-layer="32" from-port="2" to-layer="34" to-port="1"/>
+		<edge from-layer="33" from-port="2" to-layer="41" to-port="0"/>
+		<edge from-layer="34" from-port="2" to-layer="36" to-port="0"/>
+		<edge from-layer="35" from-port="0" to-layer="36" to-port="1"/>
+		<edge from-layer="36" from-port="2" to-layer="38" to-port="0"/>
+		<edge from-layer="37" from-port="0" to-layer="38" to-port="1"/>
+		<edge from-layer="38" from-port="2" to-layer="40" to-port="0"/>
+		<edge from-layer="39" from-port="0" to-layer="40" to-port="1"/>
+		<edge from-layer="40" from-port="2" to-layer="41" to-port="1"/>
+		<edge from-layer="41" from-port="2" to-layer="42" to-port="1"/>
+		<edge from-layer="42" from-port="2" to-layer="44" to-port="0"/>
+		<edge from-layer="43" from-port="0" to-layer="44" to-port="1"/>
+		<edge from-layer="44" from-port="2" to-layer="46" to-port="0"/>
+		<edge from-layer="45" from-port="0" to-layer="46" to-port="1"/>
+		<edge from-layer="46" from-port="2" to-layer="48" to-port="0"/>
+		<edge from-layer="46" from-port="2" to-layer="104" to-port="1"/>
+		<edge from-layer="47" from-port="0" to-layer="48" to-port="1"/>
+		<edge from-layer="48" from-port="2" to-layer="52" to-port="0"/>
+		<edge from-layer="48" from-port="2" to-layer="51" to-port="0"/>
+		<edge from-layer="48" from-port="2" to-layer="50" to-port="0"/>
+		<edge from-layer="49" from-port="0" to-layer="50" to-port="1"/>
+		<edge from-layer="50" from-port="2" to-layer="52" to-port="1"/>
+		<edge from-layer="50" from-port="2" to-layer="51" to-port="1"/>
+		<edge from-layer="51" from-port="2" to-layer="59" to-port="0"/>
+		<edge from-layer="52" from-port="2" to-layer="54" to-port="0"/>
+		<edge from-layer="53" from-port="0" to-layer="54" to-port="1"/>
+		<edge from-layer="54" from-port="2" to-layer="56" to-port="0"/>
+		<edge from-layer="55" from-port="0" to-layer="56" to-port="1"/>
+		<edge from-layer="56" from-port="2" to-layer="58" to-port="0"/>
+		<edge from-layer="57" from-port="0" to-layer="58" to-port="1"/>
+		<edge from-layer="58" from-port="2" to-layer="59" to-port="1"/>
+		<edge from-layer="59" from-port="2" to-layer="60" to-port="1"/>
+		<edge from-layer="60" from-port="2" to-layer="62" to-port="0"/>
+		<edge from-layer="61" from-port="0" to-layer="62" to-port="1"/>
+		<edge from-layer="62" from-port="2" to-layer="64" to-port="0"/>
+		<edge from-layer="63" from-port="0" to-layer="64" to-port="1"/>
+		<edge from-layer="64" from-port="2" to-layer="88" to-port="0"/>
+		<edge from-layer="64" from-port="2" to-layer="66" to-port="0"/>
+		<edge from-layer="65" from-port="0" to-layer="88" to-port="1"/>
+		<edge from-layer="66" from-port="1" to-layer="69" to-port="0"/>
+		<edge from-layer="67" from-port="0" to-layer="69" to-port="1"/>
+		<edge from-layer="68" from-port="0" to-layer="69" to-port="2"/>
+		<edge from-layer="69" from-port="3" to-layer="73" to-port="0"/>
+		<edge from-layer="70" from-port="0" to-layer="73" to-port="1"/>
+		<edge from-layer="71" from-port="0" to-layer="73" to-port="2"/>
+		<edge from-layer="72" from-port="0" to-layer="73" to-port="3"/>
+		<edge from-layer="73" from-port="4" to-layer="75" to-port="0"/>
+		<edge from-layer="74" from-port="0" to-layer="75" to-port="1"/>
+		<edge from-layer="75" from-port="2" to-layer="79" to-port="0"/>
+		<edge from-layer="76" from-port="0" to-layer="79" to-port="1"/>
+		<edge from-layer="77" from-port="0" to-layer="79" to-port="2"/>
+		<edge from-layer="78" from-port="0" to-layer="79" to-port="3"/>
+		<edge from-layer="79" from-port="4" to-layer="82" to-port="0"/>
+		<edge from-layer="80" from-port="0" to-layer="82" to-port="1"/>
+		<edge from-layer="81" from-port="0" to-layer="82" to-port="2"/>
+		<edge from-layer="82" from-port="3" to-layer="86" to-port="0"/>
+		<edge from-layer="83" from-port="0" to-layer="86" to-port="1"/>
+		<edge from-layer="84" from-port="0" to-layer="86" to-port="2"/>
+		<edge from-layer="85" from-port="0" to-layer="86" to-port="3"/>
+		<edge from-layer="86" from-port="4" to-layer="87" to-port="0"/>
+		<edge from-layer="87" from-port="1" to-layer="88" to-port="2"/>
+		<edge from-layer="88" from-port="3" to-layer="92" to-port="0"/>
+		<edge from-layer="88" from-port="3" to-layer="91" to-port="0"/>
+		<edge from-layer="88" from-port="3" to-layer="90" to-port="0"/>
+		<edge from-layer="89" from-port="0" to-layer="90" to-port="1"/>
+		<edge from-layer="90" from-port="2" to-layer="91" to-port="1"/>
+		<edge from-layer="90" from-port="2" to-layer="92" to-port="1"/>
+		<edge from-layer="91" from-port="2" to-layer="99" to-port="0"/>
+		<edge from-layer="92" from-port="2" to-layer="94" to-port="0"/>
+		<edge from-layer="93" from-port="0" to-layer="94" to-port="1"/>
+		<edge from-layer="94" from-port="2" to-layer="96" to-port="0"/>
+		<edge from-layer="95" from-port="0" to-layer="96" to-port="1"/>
+		<edge from-layer="96" from-port="2" to-layer="98" to-port="0"/>
+		<edge from-layer="97" from-port="0" to-layer="98" to-port="1"/>
+		<edge from-layer="98" from-port="2" to-layer="99" to-port="1"/>
+		<edge from-layer="99" from-port="2" to-layer="100" to-port="1"/>
+		<edge from-layer="100" from-port="2" to-layer="102" to-port="0"/>
+		<edge from-layer="101" from-port="0" to-layer="102" to-port="1"/>
+		<edge from-layer="102" from-port="2" to-layer="103" to-port="0"/>
+		<edge from-layer="103" from-port="1" to-layer="104" to-port="0"/>
+		<edge from-layer="104" from-port="2" to-layer="106" to-port="0"/>
+		<edge from-layer="104" from-port="2" to-layer="128" to-port="0"/>
+		<edge from-layer="105" from-port="0" to-layer="128" to-port="1"/>
+		<edge from-layer="106" from-port="1" to-layer="109" to-port="0"/>
+		<edge from-layer="107" from-port="0" to-layer="109" to-port="1"/>
+		<edge from-layer="108" from-port="0" to-layer="109" to-port="2"/>
+		<edge from-layer="109" from-port="3" to-layer="113" to-port="0"/>
+		<edge from-layer="110" from-port="0" to-layer="113" to-port="1"/>
+		<edge from-layer="111" from-port="0" to-layer="113" to-port="2"/>
+		<edge from-layer="112" from-port="0" to-layer="113" to-port="3"/>
+		<edge from-layer="113" from-port="4" to-layer="115" to-port="0"/>
+		<edge from-layer="114" from-port="0" to-layer="115" to-port="1"/>
+		<edge from-layer="115" from-port="2" to-layer="119" to-port="0"/>
+		<edge from-layer="116" from-port="0" to-layer="119" to-port="1"/>
+		<edge from-layer="117" from-port="0" to-layer="119" to-port="2"/>
+		<edge from-layer="118" from-port="0" to-layer="119" to-port="3"/>
+		<edge from-layer="119" from-port="4" to-layer="122" to-port="0"/>
+		<edge from-layer="120" from-port="0" to-layer="122" to-port="1"/>
+		<edge from-layer="121" from-port="0" to-layer="122" to-port="2"/>
+		<edge from-layer="122" from-port="3" to-layer="126" to-port="0"/>
+		<edge from-layer="123" from-port="0" to-layer="126" to-port="1"/>
+		<edge from-layer="124" from-port="0" to-layer="126" to-port="2"/>
+		<edge from-layer="125" from-port="0" to-layer="126" to-port="3"/>
+		<edge from-layer="126" from-port="4" to-layer="127" to-port="0"/>
+		<edge from-layer="127" from-port="1" to-layer="128" to-port="2"/>
+		<edge from-layer="128" from-port="3" to-layer="131" to-port="0"/>
+		<edge from-layer="128" from-port="3" to-layer="132" to-port="0"/>
+		<edge from-layer="128" from-port="3" to-layer="130" to-port="0"/>
+		<edge from-layer="129" from-port="0" to-layer="130" to-port="1"/>
+		<edge from-layer="130" from-port="2" to-layer="132" to-port="1"/>
+		<edge from-layer="130" from-port="2" to-layer="131" to-port="1"/>
+		<edge from-layer="131" from-port="2" to-layer="139" to-port="0"/>
+		<edge from-layer="132" from-port="2" to-layer="134" to-port="0"/>
+		<edge from-layer="133" from-port="0" to-layer="134" to-port="1"/>
+		<edge from-layer="134" from-port="2" to-layer="136" to-port="0"/>
+		<edge from-layer="135" from-port="0" to-layer="136" to-port="1"/>
+		<edge from-layer="136" from-port="2" to-layer="138" to-port="0"/>
+		<edge from-layer="137" from-port="0" to-layer="138" to-port="1"/>
+		<edge from-layer="138" from-port="2" to-layer="139" to-port="1"/>
+		<edge from-layer="139" from-port="2" to-layer="140" to-port="1"/>
+		<edge from-layer="140" from-port="2" to-layer="142" to-port="0"/>
+		<edge from-layer="141" from-port="0" to-layer="142" to-port="1"/>
+		<edge from-layer="142" from-port="2" to-layer="143" to-port="0"/>
+		<edge from-layer="143" from-port="1" to-layer="144" to-port="0"/>
+		<edge from-layer="144" from-port="2" to-layer="168" to-port="0"/>
+		<edge from-layer="144" from-port="2" to-layer="146" to-port="0"/>
+		<edge from-layer="145" from-port="0" to-layer="168" to-port="1"/>
+		<edge from-layer="146" from-port="1" to-layer="149" to-port="0"/>
+		<edge from-layer="147" from-port="0" to-layer="149" to-port="1"/>
+		<edge from-layer="148" from-port="0" to-layer="149" to-port="2"/>
+		<edge from-layer="149" from-port="3" to-layer="153" to-port="0"/>
+		<edge from-layer="150" from-port="0" to-layer="153" to-port="1"/>
+		<edge from-layer="151" from-port="0" to-layer="153" to-port="2"/>
+		<edge from-layer="152" from-port="0" to-layer="153" to-port="3"/>
+		<edge from-layer="153" from-port="4" to-layer="155" to-port="0"/>
+		<edge from-layer="154" from-port="0" to-layer="155" to-port="1"/>
+		<edge from-layer="155" from-port="2" to-layer="159" to-port="0"/>
+		<edge from-layer="156" from-port="0" to-layer="159" to-port="1"/>
+		<edge from-layer="157" from-port="0" to-layer="159" to-port="2"/>
+		<edge from-layer="158" from-port="0" to-layer="159" to-port="3"/>
+		<edge from-layer="159" from-port="4" to-layer="162" to-port="0"/>
+		<edge from-layer="160" from-port="0" to-layer="162" to-port="1"/>
+		<edge from-layer="161" from-port="0" to-layer="162" to-port="2"/>
+		<edge from-layer="162" from-port="3" to-layer="166" to-port="0"/>
+		<edge from-layer="163" from-port="0" to-layer="166" to-port="1"/>
+		<edge from-layer="164" from-port="0" to-layer="166" to-port="2"/>
+		<edge from-layer="165" from-port="0" to-layer="166" to-port="3"/>
+		<edge from-layer="166" from-port="4" to-layer="167" to-port="0"/>
+		<edge from-layer="167" from-port="1" to-layer="168" to-port="2"/>
+		<edge from-layer="168" from-port="3" to-layer="170" to-port="0"/>
+		<edge from-layer="168" from-port="3" to-layer="172" to-port="0"/>
+		<edge from-layer="168" from-port="3" to-layer="171" to-port="0"/>
+		<edge from-layer="169" from-port="0" to-layer="170" to-port="1"/>
+		<edge from-layer="170" from-port="2" to-layer="171" to-port="1"/>
+		<edge from-layer="170" from-port="2" to-layer="172" to-port="1"/>
+		<edge from-layer="171" from-port="2" to-layer="179" to-port="0"/>
+		<edge from-layer="172" from-port="2" to-layer="174" to-port="0"/>
+		<edge from-layer="173" from-port="0" to-layer="174" to-port="1"/>
+		<edge from-layer="174" from-port="2" to-layer="176" to-port="0"/>
+		<edge from-layer="175" from-port="0" to-layer="176" to-port="1"/>
+		<edge from-layer="176" from-port="2" to-layer="178" to-port="0"/>
+		<edge from-layer="177" from-port="0" to-layer="178" to-port="1"/>
+		<edge from-layer="178" from-port="2" to-layer="179" to-port="1"/>
+		<edge from-layer="179" from-port="2" to-layer="180" to-port="1"/>
+		<edge from-layer="180" from-port="2" to-layer="182" to-port="0"/>
+		<edge from-layer="181" from-port="0" to-layer="182" to-port="1"/>
+		<edge from-layer="182" from-port="2" to-layer="183" to-port="0"/>
+		<edge from-layer="183" from-port="1" to-layer="184" to-port="0"/>
+		<edge from-layer="184" from-port="2" to-layer="186" to-port="0"/>
+		<edge from-layer="184" from-port="2" to-layer="208" to-port="0"/>
+		<edge from-layer="185" from-port="0" to-layer="208" to-port="1"/>
+		<edge from-layer="186" from-port="1" to-layer="189" to-port="0"/>
+		<edge from-layer="187" from-port="0" to-layer="189" to-port="1"/>
+		<edge from-layer="188" from-port="0" to-layer="189" to-port="2"/>
+		<edge from-layer="189" from-port="3" to-layer="193" to-port="0"/>
+		<edge from-layer="190" from-port="0" to-layer="193" to-port="1"/>
+		<edge from-layer="191" from-port="0" to-layer="193" to-port="2"/>
+		<edge from-layer="192" from-port="0" to-layer="193" to-port="3"/>
+		<edge from-layer="193" from-port="4" to-layer="195" to-port="0"/>
+		<edge from-layer="194" from-port="0" to-layer="195" to-port="1"/>
+		<edge from-layer="195" from-port="2" to-layer="199" to-port="0"/>
+		<edge from-layer="196" from-port="0" to-layer="199" to-port="1"/>
+		<edge from-layer="197" from-port="0" to-layer="199" to-port="2"/>
+		<edge from-layer="198" from-port="0" to-layer="199" to-port="3"/>
+		<edge from-layer="199" from-port="4" to-layer="202" to-port="0"/>
+		<edge from-layer="200" from-port="0" to-layer="202" to-port="1"/>
+		<edge from-layer="201" from-port="0" to-layer="202" to-port="2"/>
+		<edge from-layer="202" from-port="3" to-layer="206" to-port="0"/>
+		<edge from-layer="203" from-port="0" to-layer="206" to-port="1"/>
+		<edge from-layer="204" from-port="0" to-layer="206" to-port="2"/>
+		<edge from-layer="205" from-port="0" to-layer="206" to-port="3"/>
+		<edge from-layer="206" from-port="4" to-layer="207" to-port="0"/>
+		<edge from-layer="207" from-port="1" to-layer="208" to-port="2"/>
+		<edge from-layer="208" from-port="3" to-layer="210" to-port="0"/>
+		<edge from-layer="209" from-port="0" to-layer="210" to-port="1"/>
+		<edge from-layer="210" from-port="2" to-layer="211" to-port="0"/>
+		<edge from-layer="211" from-port="1" to-layer="212" to-port="0"/>
+	</edges>
+	<meta_data>
+		<MO_version value="2021.4.1-3926-14e67d86634-releases/2021/4"/>
+		<cli_parameters>
+			<batch value="1"/>
+			<data_type value="FP16"/>
+			<disable_nhwc_to_nchw value="False"/>
+			<disable_resnet_optimization value="False"/>
+			<disable_weights_compression value="False"/>
+			<enable_concat_optimization value="False"/>
+			<extensions value="DIR"/>
+			<framework value="tf"/>
+			<freeze_placeholder_with_value value="{}"/>
+			<generate_deprecated_IR_V7 value="False"/>
+			<input_model value="DIR/frozen_unet.pbtxt"/>
+			<input_model_is_text value="True"/>
+			<keep_shape_ops value="True"/>
+			<legacy_ir_generation value="False"/>
+			<log_level value="ERROR"/>
+			<mean_scale_values value="{}"/>
+			<mean_values value="()"/>
+			<model_name value="frozen_unet"/>
+			<output_dir value="DIR"/>
+			<placeholder_data_types value="{}"/>
+			<progress value="False"/>
+			<reverse_input_channels value="False"/>
+			<scale_values value="()"/>
+			<silent value="False"/>
+			<static_shape value="False"/>
+			<stream_output value="False"/>
+			<transform value=""/>
+			<unset unset_cli_parameters="disable_fusing, disable_gfusing, finegrain_fusing, input, input_checkpoint, input_meta_graph, input_shape, move_to_preprocess, output, placeholder_shapes, saved_model_dir, saved_model_tags, scale, tensorboard_logdir, tensorflow_custom_layer_libraries, tensorflow_custom_operations_config_update, tensorflow_object_detection_api_pipeline_config, tensorflow_use_custom_operations_config, transformations_config"/>
+		</cli_parameters>
+	</meta_data>
+</net>
