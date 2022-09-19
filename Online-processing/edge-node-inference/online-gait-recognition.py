@@ -5,6 +5,7 @@ from pathlib import Path
 import cv2
 import csv
 import depthai as dai
+import shutil
 import numpy as np
 from datetime import datetime
 import time
@@ -28,11 +29,11 @@ view = '075'
 jetson = 'jetson6'
 
 # load classification model
-cnn_gait_recognition = tf.saved_model.load(f"/home/{jetson}/models/cnn_gait_recognition_acc_09520_val_acc_0.8883_TFTRT_FP16", tags=[tag_constants.SERVING])
+cnn_gait_recognition = tf.saved_model.load(f"/home/{jetson}/models/cnn_gait_recognition_acc_0.9514_loss_0.3384_val_acc_0.9361_loss_acc_0.4261_TFTRT_FP16", tags=[tag_constants.SERVING])
 infer = cnn_gait_recognition.signatures['serving_default']
 
 # finish the model loading
-infer(tf.reshape(tf.zeros([160, 160], tf.float32), [-1, 160, 160, 1]))
+infer(tf.reshape(tf.zeros([220, 220], tf.float32), [-1, 220, 220, 1]))
 
 # load object detection model
 nnPathDefault = str((Path(__file__).parent / Path(f'/home/{jetson}/models/mobilenet-ssd_openvino_2021.4_6shave.blob')).resolve().absolute())
@@ -85,8 +86,9 @@ seg = Infer_myriad()
 # define empty variables
 silhouettes = []
 classID = None
-GEI = np.zeros((200,200), np.uint8)
 out = np.zeros((128,128), np.uint8)
+sil_centered = np.zeros((220,220), np.uint8)
+GEI = np.zeros((220,220), np.uint8)
 
 # define the OAK-D device ID
 found, device_info = dai.Device.getDeviceByMxId("14442C1041F042D700")
@@ -210,65 +212,87 @@ with dai.Device(pipeline, device_info) as device:
                 offsets = [10, 10, 10, 10]
                 x = x - offsets[0] if x - offsets[0] >=0 else 0
                 y = y - offsets[3] if y - offsets[3] >=0 else 0
-                w = w + offsets[1]+offsets[0] if w + offsets[1]+offsets[0] <=300 else 300
-                h = h + offsets[3]+offsets[1] if h + offsets[3]+offsets[1] <=300 else 300
+                w = w + offsets[1]+offsets[0] if w + offsets[1]+offsets[0] <= frame.shape[1] else frame.shape[1]
+                h = h + offsets[3]+offsets[1] if h + offsets[3]+offsets[1] <= frame.shape[0] else frame.shape[0]
                 bbox = [x, y, w, h]
 
                 # extract region of interest from bounding-box coordinates
                 roi = frame[bbox[1]:bbox[3], bbox[0]:bbox[2]]
+                roi_height = roi.shape[0]
+                roi_width = roi.shape[1]
 
-                # convert roi to segmentation model input format
+                # prepare ROI for segmentation
                 roi = cv2.resize(roi,(128,128))
-                roi = roi/255.0
-                roi = tf.reshape(roi,[-1,128,128,3])
 
-                # obtain segmented images
-                out = seg.infer(roi)
+                try:
+                    # run image segmentation on roi
+                    out = seg.infer(roi)
+
+                    # recover silhouette original size
+                    sil = cv2.resize(out, (roi_width,roi_height)) 
+                    
+                    if sil.mean() > 2:
+                        # extract a fine bounding box
+                        x, y, w, h = cv2.boundingRect(sil)
+                        seg_roi = sil[y:y+h,x:x+w]
+                        
+                        # center the silhouette
+                        sil_centered = GEI_generation.sil_centering(sil, 220)
+                except:
+                        sil_centered = np.zeros((220,220), np.uint8)
+
 
                 # append normalized silhouettes to list
-                silhouettes.append(out)
+                silhouettes.append(sil_centered)
 
-                # compute gei for 30 silhouettes, approx. 1.08 seconds of walking at approx. 30 FPS
-                if len(silhouettes) % 30 == 0:
+                # compute GEI for 80 silhouettes, 3 seconds of walking and approx. 3 gait cycles
+                if len(silhouettes) % 85 == 0:
+                    try:
+                        # compute the silhouettes array to obtain GEI
+                        GEI = np.mean(np.array(silhouettes), axis=0).astype('uint8')
+                                                
+                        if np.mean(GEI) < 10: 
+                            classID = None
+                            raise
 
-                    # compute the silhouettes array to obtain GEI
-                    GEI, _ = GEI_generation.GEI_generator(silhouettes)
-                    GEI = np.array(GEI, dtype='uint8')
-                    
-                    # convert GEI to classification model input format
-                    GEI_infer = GEI/255.0
-                    GEI_pred = tf.reshape(GEI_infer, [-1, 160, 160, 1])
-                    GEI_pred = tf.dtypes.cast(GEI_pred, tf.float32)
+                        # convert GEI to classification model input format
+                        GEI_pred = GEI/255.0
+                        GEI_pred = tf.reshape(GEI_pred, [-1, 220, 220, 1])
+                        GEI_pred = tf.dtypes.cast(GEI_pred, tf.float32)
 
-                    number_generated_GEIs += 1
-                    
-                    # run inference
-                    pred = np.asarray(infer(GEI_pred)['output_1'])
 
-                    # get the class ID and prediction certainty
-                    classID = int(tf.argmax(pred, axis = 1))
-                    pred_acc = round(pred[0][classID], 2)
-
-                    # check if identified subject correspond to video subject
-                    if str(classID).zfill(3) == subject:
-                        correct_classification += 1
-                        color = (0, 255, 0)
-                    else:
-                        color = (0, 0, 255)
-                    
-                    # save relevant information
-                    row = [now.strftime("%m-%d-%Y--%H-%M") + "," + str(classID).zfill(3) + "," + args.subject + "," + str(pred_acc) + "," + str(round(time.monotonic() - startTime,2))]
-                    print(row)
-
-                    with  open(f'data_log_{view}.csv', 'a') as f:
+                        number_generated_GEIs += 1
                         
-                        # create the csv writer
-                        writer = csv.writer(f)
-                        # write a row to the csv file
-                        writer.writerow(row)
+                        # run inference
+                        pred = np.asarray(infer(GEI_pred)['output_1'])
+
+                        # get the class ID and prediction certainty
+                        classID = int(tf.argmax(pred, axis = 1))
+                        pred_acc = round(pred[0][classID], 2)
+
+                        # check if identified subject correspond to video subject
+                        if str(classID).zfill(3) == subject:
+                            correct_classification += 1
+                            color = (0, 255, 0)
+                        else:
+                            color = (0, 0, 255)
+                        
+                        # save relevant information
+                        row = [now.strftime("%m-%d-%Y--%H-%M") + "," + str(classID).zfill(3) + "," + args.subject + "," + str(pred_acc) + "," + str(round(time.monotonic() - startTime,2))]
+                        print(row)
+
+                        with  open(f'data_log_{view}.csv', 'a') as f:
+                            
+                            # create the csv writer
+                            writer = csv.writer(f)
+                            # write a row to the csv file
+                            writer.writerow(row)
+                        
+                    except:
+                        pass
 
                 # clean silhouettes array if 40 silhouettes is reached
-                if (len(silhouettes) > 30):
+                if (len(silhouettes) > 85):
                         silhouettes = []
 
 
@@ -309,8 +333,6 @@ with dai.Device(pipeline, device_info) as device:
         # concat important images to send to edge-server
         cimg = vconcat_resize([frame, out_resized, GEI_resized])
         cimg = cv2.resize(cimg, (150, 450))
-        
-        
 
         # define JPG encode parameters
         ret_code, jpg_buffer = cv2.imencode(".jpg", cimg, [int(cv2.IMWRITE_JPEG_QUALITY), jpeg_quality])

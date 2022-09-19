@@ -7,6 +7,7 @@ import cv2
 import shutil
 import depthai as dai
 import numpy as np
+import shutil
 import csv
 from datetime import datetime
 from time import monotonic
@@ -22,11 +23,11 @@ view = '075'
 jetson = 'jetson6'
 
 # load classification model
-cnn_gait_recognition = tf.saved_model.load(f"/home/{jetson}/models/cnn_gait_recognition_acc_09520_val_acc_0.8883_TFTRT_FP16", tags=[tag_constants.SERVING])
+cnn_gait_recognition = tf.saved_model.load(f"/home/{jetson}/models/cnn_gait_recognition_acc_0.9514_loss_0.3384_val_acc_0.9361_loss_acc_0.4261_TFTRT_FP16", tags=[tag_constants.SERVING])
 infer = cnn_gait_recognition.signatures['serving_default']
 
 # finish the model loading
-infer(tf.reshape(tf.zeros([160, 160], tf.float32), [-1, 160, 160, 1]))
+infer(tf.reshape(tf.zeros([220, 220], tf.float32), [-1, 220, 220, 1]))
 
 # Get argument first
 
@@ -91,6 +92,9 @@ with dai.Device(pipeline, device_info) as device:
         normVals = np.full(len(bbox), frame.shape[0])
         normVals[::2] = frame.shape[1]
         return (np.clip(np.array(bbox), 0, 1) * normVals).astype(int)
+    
+    def to_planar(arr: np.ndarray, shape: tuple) -> np.ndarray:
+        return cv2.resize(arr, shape).transpose(2, 0, 1).flatten()
 
     # create directories for storing data
     def create_dir(folder, force=True, verbose=False):
@@ -107,7 +111,7 @@ with dai.Device(pipeline, device_info) as device:
     test_clips = f"/home/{jetson}/test_clips"
     views = sorted(os.listdir(test_clips))
     
-    for view in views:
+    for view in ['090']:
         subjects = sorted(os.listdir(os.path.join(test_clips,view)))
 
         for subject in subjects:
@@ -130,30 +134,34 @@ with dai.Device(pipeline, device_info) as device:
                     silhouettes = []
                     classID = None
                     out = np.zeros((128,128), np.uint8)
-                    sil_aligned = np.zeros((200,200), np.uint8)
-                    GEI = np.zeros((200,200), np.uint8)
+                    sil_centered = np.zeros((220,220), np.uint8)
+                    GEI = np.zeros((220,220), np.uint8)
                     
                     print(f"Processing: subject {subject} in view {view} in walk {walk}")
                     cap = cv2.VideoCapture(os.path.join(test_clips,view,subject,walk,videoPath))
-                    
+                    length = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+                    print(length)
+                    if length > 85 : 
+                        cfr = 85
+                    elif subject == '005':
+                        cfr = 70
+                    else:
+                        cfr = int(length*0.85)
                     
                     while cap.isOpened():
-                        read_correctly, frame = cap.read()
+                        startTime = time.monotonic() 
                         
+                        read_correctly, frame = cap.read()
                         if not read_correctly:
                             break
 
-                        # convert frame to detection model input format
-                        frame = cv2.resize(frame,(300,300), interpolation=cv2.INTER_LINEAR)
-                        scaled_frame = frame.transpose(2, 0, 1).flatten()
                         
                         # define image object for depthai processing
                         img = dai.ImgFrame()
                         img.setTimestamp(monotonic())
-                        img.setData(scaled_frame)
+                        img.setData(to_planar(frame, (300, 300)))
                         img.setWidth(300)
                         img.setHeight(300)
-
                         # send data to OAK-D device
                         qIn.send(img)
                         # get detections from object detection model
@@ -164,45 +172,62 @@ with dai.Device(pipeline, device_info) as device:
                             
 
                         if frame is not None:
-                            
                             for detection in detections:
                                 if labelMap[detection.label] == 'person':             
-                                    bbox = frameNorm(frame, (detection.xmin, detection.ymin, detection.xmax, detection.ymax))
-                                    x, y, w, h = bbox
                                     
+                                    # call normalization function
+                                    bbox = frameNorm(frame, (detection.xmin, detection.ymin, detection.xmax, detection.ymax))
+
                                     # apply offsets aiming to center the person
+                                    x, y, w, h = bbox
                                     offsets = [10, 10, 10, 10]
                                     x = x - offsets[0] if x - offsets[0] >=0 else 0
                                     y = y - offsets[3] if y - offsets[3] >=0 else 0
-                                    w = w + offsets[1]+offsets[0] if w + offsets[1]+offsets[0] <=300 else 300
-                                    h = h + offsets[3]+offsets[1] if h + offsets[3]+offsets[1] <=300 else 300
+                                    w = w + offsets[1]+offsets[0] if w + offsets[1]+offsets[0] <= frame.shape[1] else frame.shape[1]
+                                    h = h + offsets[3]+offsets[1] if h + offsets[3]+offsets[1] <= frame.shape[0] else frame.shape[0]
                                     bbox = [x, y, w, h]
                                     
                                     # extract region of interest from bounding-box coordinates
                                     roi = frame[bbox[1]:bbox[3], bbox[0]:bbox[2]]
-                                    
-                                    if roi.shape[1] > 60  or roi.shape[1] < 150:
-                                        # convert roi to segmentation model input format
-                                        roi = cv2.resize(roi,(128,128))
-                                
-                                        # Run image segmentation on roi
-                                        out = seg.infer(roi)
-                                        #cv2.imshow("silhouette", out)
-                                        # append normalized silhouettes to list
-                                        silhouettes.append(out)
+                                    roi_height = roi.shape[0]
+                                    roi_width = roi.shape[1]
 
+                                    # prepare ROI for segmentation
+                                    roi = cv2.resize(roi,(128,128))
+
+                                    try:
+                                        # run image segmentation on roi
+                                        out = seg.infer(roi)
+
+                                        # recover silhouette original size
+                                        sil = cv2.resize(out, (roi_width,roi_height)) 
+                                        
+                                        if sil.mean() > 2:
+                                            # extract a fine bounding box
+                                            x, y, w, h = cv2.boundingRect(sil)
+                                            seg_roi = sil[y:y+h,x:x+w]
+                                            
+                                            # center the silhouette
+                                            sil_centered = GEI_generation.sil_centering(sil, 220)
+                                    except:
+                                            sil_centered = np.zeros((220,220), np.uint8)
+                                        
+                                    # append normalized silhouettes to list
+                                    silhouettes.append(sil_centered)
+                                        
                                     # compute gei for 40 silhouettes, approx. 1.33 seconds of walking at approx. 30 FPS
-                                    if len(silhouettes) % 30 == 0:
+                                    if len(silhouettes) % cfr == 0:
                                         try:
                                             # Compute the silhouettes array to obtain GEI
-                                            GEI, _ = GEI_generation.GEI_generator(silhouettes)
-
-                                            if np.mean(GEI) < 30: 
+                                            GEI = np.mean(np.array(silhouettes), axis=0).astype('uint8')
+                                            
+                                            if np.mean(GEI) < 10: 
                                                 classID = None
                                                 raise
+                                            
                                             # convert GEI to classification model input format
-                                            GEI_infer = GEI/255.0
-                                            GEI_pred = tf.reshape(GEI_infer, [-1, 160, 160, 1])
+                                            GEI_pred = GEI/255.0
+                                            GEI_pred = tf.reshape(GEI_pred, [-1, 220, 220, 1])
                                             GEI_pred = tf.dtypes.cast(GEI_pred, tf.float32)
 
                                             number_generated_GEIs += 1
@@ -221,7 +246,7 @@ with dai.Device(pipeline, device_info) as device:
                                             else:
                                                 color = (0, 0, 255)
 
-                                            #cv2.imshow("GEI", np.array(GEI, dtype='uint8'))
+                                            cv2.imshow("GEI", GEI)
 
 
                                             # save relevant information
@@ -239,7 +264,7 @@ with dai.Device(pipeline, device_info) as device:
                                             pass
 
                                     # clean silhouettes array if 40 silhouettes is reached
-                                    if len(silhouettes) > 30:
+                                    if len(silhouettes) > cfr:
                                         silhouettes = []
 
                                     
@@ -259,10 +284,9 @@ with dai.Device(pipeline, device_info) as device:
                                     if classID is not None:
                                         cv2.imwrite(os.path.join(save_frame_path, f'{subject}-{str(classID).zfill(3)}-{view}-{videoPath.split(".")[0]}-{number_generated_GEIs}.jpg'), frame)
                                         cv2.imwrite(os.path.join(save_GEI_path, f'{subject}-{str(classID).zfill(3)}-{view}-{videoPath.split(".")[0]}-{number_generated_GEIs}.jpg'), GEI)
-                                        
 
-                                    #cv2.imshow("rgb", frame)
-                                    #cv2.imshow("silhouette", out)
+                                    cv2.imshow("rgb", frame)
+                                    
 
  
                         if cv2.waitKey(1) == ord('q'):

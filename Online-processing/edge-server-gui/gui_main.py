@@ -161,7 +161,7 @@ class App(QtWidgets.QMainWindow):
         # create the video capture thread
         # Jetson 6
         #self.thread5 = VideoThread("192.168.0.130", 5555)
-        self.thread5 = VideoThread("192.168.1.208", 5555)
+        self.thread5 = VideoThread("192.168.1.206", 5555)
         # connect its signal to the update_image slot
         self.thread5.change_pixmap_signal.connect(self.update_image5)
         # start the thread

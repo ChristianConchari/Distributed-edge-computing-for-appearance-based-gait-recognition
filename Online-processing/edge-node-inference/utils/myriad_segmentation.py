@@ -7,7 +7,7 @@ class Infer_myriad:
     def __init__(self):
         ie = Core()
         device = "MYRIAD.1.2.3-ma2480"
-        model = ie.read_model(model="/home/jetson6/models/128x128_acc_0-8408_loss_0-0663_val_acc_0-8485_val_loss_0-0665_DB_UCB300_OAKGait16_0-2M.xml")
+        model = ie.read_model(model="/home/jetson6/models/128x128_acc_0.8786_loss_0.1018_val-acc_0.8875_val-loss_0.0817_0.22M_13-09-22-TF_OAKGait16.xml")
         self.compiled_model = ie.compile_model(model=model, device_name=device)
 
     def infer(self, roi_img):
