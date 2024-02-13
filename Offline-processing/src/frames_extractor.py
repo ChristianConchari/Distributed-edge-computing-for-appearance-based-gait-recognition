@@ -135,7 +135,7 @@ class FrameExtractor:
         frames_dir = path.join(images_dir, view, frs_dir)
         for subject in self.subjects:
             if self.verbose:
-                print(f'Processing subject: {subject} view: {view}' + ' '*10, end='\r')
+                print(f'Processing subject: {subject} view: {view}')
             subject_dir = path.join(clips_directory, view, subject)
             self.process_subject(subject_dir, frames_dir, subject)
 
