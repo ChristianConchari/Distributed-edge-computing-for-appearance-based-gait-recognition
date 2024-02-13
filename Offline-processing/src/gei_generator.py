@@ -1,0 +1,160 @@
+"""
+This module contains the GEIGenerator class,
+which is used to generate Gait Energy Images (GEIs) from silhouettes.
+"""
+from typing import List, Optional
+from os import path, listdir
+from cv2 import imread, imwrite # pylint: disable=no-name-in-module
+from numpy import mean, array
+from .create_dir import create_dir
+
+DEFAULT_WALKS = ['nm', 'bg', 'cl']
+
+class GEIGenerator:
+    """
+    This class is used to generate Gait Energy Images (GEIs) from silhouettes.
+    
+    Attributes:
+        silhouettes_dir (str): The directory containing the silhouettes.
+        representations_dir (str): The directory to save the generated representations.
+        views (List[str]): The list of views to process.
+        walks (List[str]): The list of walks to process.
+        verbose (bool): A flag to indicate whether to print verbose output.
+        
+    Methods:
+        extract_gei_from_silhouettes(): 
+            Extracts the Gait Energy Image (GEI) from the silhouettes.
+        process_view(view: str): 
+            Process a specific view of gait data.
+        process_subject(subject: str, view: str, silhouettes_directory: str, representations_directory: str): 
+            Process a subject's gait data for a specific view.
+        process_walk(subject: str, walk: str, silhouettes_directory: str, representations_directory: str): 
+            Process a walk for a given subject.
+        process_sequence(sequence: str, seq_index: int, sequence_directory: str, subject_gei_directory: str): 
+            Process a sequence of frames to generate a gait energy image (GEI).
+    """
+    def __init__(
+        self,
+        silhouettes_dir: str,
+        representations_dir: str,
+        views: List[str],
+        walks: Optional[List[str]] = None,
+        verbose: bool = False
+        ):
+        self.silhouettes_dir = silhouettes_dir
+        self.representations_dir = representations_dir
+        self.views = views
+        self.walks = walks or DEFAULT_WALKS
+        self.verbose = verbose
+
+    def extract_gei_from_silhouettes(self):
+        """
+        Extracts the Gait Energy Image (GEI) from the silhouettes.
+
+        This method iterates over the views and processes each view using the `process_view` method.
+
+        Parameters:
+            None
+
+        Returns:
+            None
+        """
+        for view in self.views:
+            self.process_view(view)
+
+    def process_view(self, view: str):
+        """
+        Process a specific view of gait data.
+
+        Args:
+            view (str): The name of the view.
+
+        Returns:
+            None
+        """
+        silhouettes_directory = path.join(self.silhouettes_dir, view)
+        representations_directory = path.join(self.representations_dir, view)
+        if self.verbose:
+            print(f'GENERATING GAIT REPRESENTATIONS FROM VIEW: {view}')
+
+        subjects = sorted(listdir(silhouettes_directory))
+        for subject in subjects:
+            self.process_subject(subject, view, silhouettes_directory, representations_directory)
+
+    def process_subject(
+        self,
+        subject: str,
+        view: str,
+        silhouettes_directory: str,
+        representations_directory: str
+        ):
+        """
+        Process a subject's gait data for a specific view.
+
+        Args:
+            subject (str): The subject's identifier.
+            view (str): The view identifier.
+            silhouettes_directory (str): The directory path where the silhouettes are stored.
+            representations_directory (str): The directory path where the representations 
+                                             will be saved.
+        """
+        if self.verbose:
+            print(f'Processing subject: {subject} view: {view}')
+        for walk in self.walks:
+            self.process_walk(subject, walk, silhouettes_directory, representations_directory)
+
+    def process_walk(
+        self,
+        subject: str,
+        walk: str,
+        silhouettes_directory: str,
+        representations_directory: str
+        ):
+        """
+        Process a walk for a given subject.
+
+        Args:
+            subject (str): The subject identifier.
+            walk (str): The walk identifier.
+            silhouettes_directory (str): The directory containing the silhouettes.
+            representations_directory (str): The directory to store the representations.
+
+        Returns:
+            None
+        """
+        subject_gei_directory = path.join(representations_directory, subject, walk)
+        create_dir(subject_gei_directory, force=True)
+        sequence_directory = path.join(silhouettes_directory, subject, walk)
+        sequences = sorted(listdir(sequence_directory))
+
+        for seq_index, sequence in enumerate(sequences):
+            self.process_sequence(sequence, seq_index, sequence_directory, subject_gei_directory)
+
+    def process_sequence(
+        self,
+        sequence: str,
+        seq_index: int,
+        sequence_directory: str,
+        subject_gei_directory: str
+        ):
+        """
+        Process a sequence of frames to generate a gait energy image (GEI).
+
+        Args:
+            sequence (str): The name of the sequence.
+            seq_index (int): The index of the sequence.
+            sequence_directory (str): The directory containing the frames of the sequence.
+            subject_gei_directory (str): The directory to save the generated GEI.
+
+        Returns:
+            None
+        """
+        sequence_frames_directory = path.join(sequence_directory, sequence)
+        frame_paths = sorted(listdir(sequence_frames_directory))
+        silhouettes = [
+            imread(path.join(sequence_frames_directory, frame_path))
+            for frame_path in frame_paths
+        ]
+        gei_image = mean(array(silhouettes), axis=0).astype("uint8")
+        gei_filename = path.join(subject_gei_directory, f'{str(seq_index+1).zfill(2)}.png')
+        imwrite(gei_filename, gei_image)
