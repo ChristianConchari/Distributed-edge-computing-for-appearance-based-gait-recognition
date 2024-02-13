@@ -37,7 +37,8 @@ class TestDataGenerator:
         test_clips_directory: str,
         subjects: List[str],
         nclips: Dict[str, int],
-        verbose: bool = False
+        views: List[str],
+        verbose: bool = False,
         ):
         """
         Initializes the TestDataGenerator object.
@@ -53,6 +54,7 @@ class TestDataGenerator:
         self.test_clips_directory = test_clips_directory
         self.subjects = subjects
         self.nclips = nclips
+        self.views = views
         self.verbose = verbose
 
     def process_clips(self, walk_dir: str, test_dir: str, subject: str, walk: str) -> None:
@@ -109,7 +111,7 @@ class TestDataGenerator:
             subject_dir = path.join(self.clips_directory, view, subject)
             self.process_walks(subject_dir, test_dir, subject)
 
-    def generate_test_data(self, views: List[str]) -> None:
+    def generate_test_data(self) -> None:
         """
         Generates test data for the given views.
 
@@ -119,7 +121,7 @@ class TestDataGenerator:
         Returns:
             None
         """
-        for view in views:
+        for view in self.views:
             test_dir = path.join(self.test_clips_directory, view)
             if self.verbose:
                 print(f'PROCESSING VIEW: {view}')
