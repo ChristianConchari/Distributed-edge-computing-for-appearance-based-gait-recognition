@@ -3,7 +3,7 @@ This module contains the DatasetBuilder class which
 is used to build the dataset for the given representations.
 """
 from os import listdir, path
-from cv2 import imread, imwrite # pylint: disable=no-name-in-module
+from shutil import copy
 from .create_dir import create_dir
 
 class DatasetBuilder:
@@ -82,7 +82,7 @@ class DatasetBuilder:
 
     def process_gei_images(self, sub_gei_dir, sub_training_dir, view, walk):
         """
-        Process GEI images from a given directory and save them in the training directory.
+        Copy the GEI images from the given directory to the training directory.
 
         Args:
             sub_gei_dir (str): The directory path containing the GEI images.
@@ -92,10 +92,5 @@ class DatasetBuilder:
         """
         for dir_name in listdir(sub_gei_dir):
             gei_name = path.join(sub_gei_dir, dir_name)
-            gei = imread(gei_name, 0)
-            if gei is not None:
-                gei_image_name_path = path.join(sub_training_dir, f'{view}-{walk}-{dir_name}')
-                print(gei_image_name_path)
-                imwrite(path.join(self.training_path, gei_image_name_path), gei)
-            else:
-                print(f"Failed to process GEI image at {gei_name}. Image is None.")
+            gei_image_name_path = path.join(sub_training_dir, f'{view}-{walk}-{dir_name}')
+            copy(gei_name, gei_image_name_path)
