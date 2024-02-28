@@ -95,8 +95,7 @@ class GEIGenerator:
             subject (str): The subject's identifier.
             view (str): The view identifier.
             silhouettes_directory (str): The directory path where the silhouettes are stored.
-            representations_directory (str): The directory path where the representations 
-                                             will be saved.
+            representations_directory (str): The directory path where the representations will be saved.
         """
         if self.verbose:
             print(f'Processing subject: {subject} view: {view}')
@@ -151,10 +150,17 @@ class GEIGenerator:
         """
         sequence_frames_directory = path.join(sequence_directory, sequence)
         frame_paths = sorted(listdir(sequence_frames_directory))
-        silhouettes = [
-            imread(path.join(sequence_frames_directory, frame_path))
-            for frame_path in frame_paths
-        ]
-        gei_image = mean(array(silhouettes), axis=0).astype("uint8")
-        gei_filename = path.join(subject_gei_directory, f'{str(seq_index+1).zfill(2)}.png')
-        imwrite(gei_filename, gei_image)
+        num_frames = len(frame_paths)
+        num_batches = (num_frames + 39) // 40
+
+        for batch_index in range(num_batches):
+            start_index = batch_index * 40
+            end_index = min(start_index + 40, num_frames)
+            batch_frame_paths = frame_paths[start_index:end_index]
+            silhouettes = [
+                imread(path.join(sequence_frames_directory, frame_path))
+                for frame_path in batch_frame_paths
+            ]
+            gei_image = mean(array(silhouettes), axis=0).astype("uint8")
+            gei_filename = path.join(subject_gei_directory, f'{str(seq_index+1).zfill(2)}_{batch_index+1}.png')
+            imwrite(gei_filename, gei_image)
