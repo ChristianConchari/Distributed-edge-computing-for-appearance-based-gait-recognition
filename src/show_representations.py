@@ -48,8 +48,8 @@ def _plot_images_from_represantations(repres_dir: str, nplot: int) -> int:
             title(seq)
             axis('off')
             nplot += 1
-    except Exception as e: # pylint: disable=broad-except
-        print(f"Failed to plot images from sequences: {e}")
+    except Exception: # pylint: disable=broad-except
+        pass
     return nplot
 
 def _process_subjects(subjects_dir: str, num_subjects: int) -> None:
