@@ -39,12 +39,14 @@ class GEIGenerator:
         representations_dir: str,
         views: List[str],
         walks: Optional[List[str]] = None,
+        n_frames: int = 30,
         verbose: bool = False
         ):
         self.silhouettes_dir = silhouettes_dir
         self.representations_dir = representations_dir
         self.views = views
         self.walks = walks or DEFAULT_WALKS
+        self.n_frames = n_frames
         self.verbose = verbose
 
     def extract_gei_from_silhouettes(self):
@@ -150,12 +152,12 @@ class GEIGenerator:
         """
         sequence_frames_directory = path.join(sequence_directory, sequence)
         frame_paths = sorted(listdir(sequence_frames_directory))
-        num_frames = len(frame_paths)
-        num_batches = (num_frames + 39) // 40
+        total_frames = len(frame_paths)
+        num_batches = (total_frames + self.n_frames-1) // self.n_frames
 
         for batch_index in range(num_batches):
-            start_index = batch_index * 40
-            end_index = min(start_index + 40, num_frames)
+            start_index = batch_index * self.n_frames
+            end_index = min(start_index + self.n_frames, total_frames)
             batch_frame_paths = frame_paths[start_index:end_index]
             silhouettes = [
                 imread(path.join(sequence_frames_directory, frame_path))
