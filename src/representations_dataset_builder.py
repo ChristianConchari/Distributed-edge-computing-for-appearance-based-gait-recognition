@@ -6,7 +6,7 @@ from os import listdir, path
 from shutil import copy
 from .create_dir import create_dir
 
-class DatasetBuilder:
+class RepresentationsDatasetBuilder:
     """
     A class to build the dataset for the given representations.
     
@@ -39,6 +39,27 @@ class DatasetBuilder:
         self.training_path = training_path
         self.views = views
         self.verbose = False
+        self.create_dirs()
+        
+    def create_dirs(self):
+        """
+        Creates directories for training data.
+
+        This method iterates over the views and subjects in the representations directory and creates
+        corresponding training directories for each subject.
+
+        Args:
+            None
+
+        Returns:
+            None
+        """
+        for view in self.views:
+            rep_dir = path.join(self.representations_dir, view)
+            subjects = sorted(listdir(rep_dir))
+            for subject in subjects:
+                sub_training_dir = path.join(self.training_path, subject)
+                create_dir(sub_training_dir, force=True)
 
     def build_datasets(self) -> None:
         """
@@ -73,7 +94,6 @@ class DatasetBuilder:
             None
         """
         sub_training_dir = path.join(self.training_path, subject)
-        create_dir(sub_training_dir, force=True)
 
         for walk in ['nm', 'bg', 'cl']:
             print(f'Processing subject: {subject} view: {view} walk:{walk}')
