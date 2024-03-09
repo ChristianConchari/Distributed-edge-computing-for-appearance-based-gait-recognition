@@ -3,7 +3,7 @@ This module contains the function to show images from the given directory.
 """
 from os import path, listdir
 from random import sample
-from typing import List, Optional
+from typing import List, Optional, Dict
 from cv2 import imread, cvtColor, COLOR_BGR2RGB # pylint: disable=no-name-in-module
 from numpy import ndarray
 from matplotlib.pyplot import imshow, axis, title, show, figure, subplot
@@ -80,26 +80,24 @@ def _process_subjects(frames_dir: str, num_subjects: int) -> None:
         print(f"Failed to process subjects: {e}")
 
 def show_images(
+    config: Dict[str, str | List],
     images_dir: str,
-    views: List[str],
-    frs_dir: Optional[str] = None,
     num_subjects: int = 3
     ) -> None:
     """
     Process multiple views of gait images.
     
     Parameters:
+    - config (dict[str | List]): The configuration dictionary.
     - images_dir (str): The directory containing the images.
-    - views (List[str]): The list of views to process.
-    - frs_dir (Optional[str]): The directory containing the frames.
     - num_subjects (int): The number of subjects to process.
     
     Returns:
     - None
     """
     try:
-        for view in views:
-            frames_dir = path.join(images_dir, view, frs_dir) if frs_dir else path.join(images_dir, view)
+        for view in config['views']:
+            frames_dir = path.join(images_dir, view)
             print(f'SHOWING VIEW: {view}')
             _process_subjects(frames_dir, num_subjects)
     except Exception as e: # pylint: disable=broad-except
