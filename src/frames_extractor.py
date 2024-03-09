@@ -1,9 +1,9 @@
 """
-This module contains the FrameExtractor class, which is responsible for extracting
+This class contains the FrameExtractor class, which is responsible for extracting
 frames from video clips and saving them as images.
 """
 from os import path, listdir
-from typing import List, Dict
+from typing import Dict, List
 from cv2 import VideoCapture, imwrite, waitKey, destroyAllWindows # pylint: disable=no-name-in-module
 from .create_dir import create_dir
 
@@ -12,11 +12,8 @@ class FrameExtractor:
     This class is responsible for extracting frames from video clips and saving them as images.
     
     attributes:
-        directories (Dict[str, str]): A dictionary containing the directories for images, 
-            clips, and frames.
-        views (List[str]): A list of views to process.
-        subjects (List[str]): A list of subject identifiers.
-        nclips (dict): A dictionary containing the number of clips for each walk.
+        config (Dict[str, any]): A dictionary containing the pipeline configuration.
+        images_dir (str): The directory where the extracted frames will be saved.
         verbose (bool): Whether to print verbose output.
     
     methods:
@@ -33,27 +30,24 @@ class FrameExtractor:
     """
     def __init__(
         self,
-        directories: Dict[str, str],
-        views: List[str],
-        subjects: List[str],
-        nclips: dict,
+        config: Dict[str, str | List],
+        frames_dir: str,
         verbose: bool = False
         ):
         """
         Initializes a FrameExtractor object.
 
         Args:
-            directories (Dict[str, str]): A dictionary containing the directories for images,
-            clips, and frames.
-            views (List[str]): A list of views to process.
-            subjects (List[str]): A list of subject identifiers.
-            nclips (dict): A dictionary containing the number of clips for each walk.
-            verbose (bool, optional): Whether to print verbose output. Defaults to False.
+            config (Dict[str, any]): A dictionary containing the directories for images, 
+                clips, and frames.
+            frames_dir (str): The directory where the extracted frames will be saved.
+            verbose (bool): Whether to print verbose output.
         """
-        self.directories = directories
-        self.views = views
-        self.subjects = subjects
-        self.nclips = nclips
+        self.images_dir = path.join(config['dataset_dir'], config['dataset_name'], frames_dir)
+        self.clips_dir= config['clips_dir']
+        self.views = config['views']
+        self.subjects = config['subjects']
+        self.nclips = config['training_clips']
         self.verbose = verbose
 
     def process_clip(self, clip_path: str, sub_dir: str) -> None:
@@ -129,14 +123,11 @@ class FrameExtractor:
         Returns:
             None
         """
-        images_dir = self.directories['images_dir']
-        clips_directory = self.directories['clips_dir']
-        frs_dir = self.directories['frs_dir']
-        frames_dir = path.join(images_dir, view, frs_dir)
+        frames_dir = path.join(self.images_dir, view)
         for subject in self.subjects:
             if self.verbose:
                 print(f'Processing subject: {subject} view: {view}')
-            subject_dir = path.join(clips_directory, view, subject)
+            subject_dir = path.join(self.clips_dir, view, subject)
             self.process_subject(subject_dir, frames_dir, subject)
 
     def extract_frames(self) -> None:
