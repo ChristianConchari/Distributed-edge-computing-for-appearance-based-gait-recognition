@@ -3,7 +3,7 @@ This module contains the SilhouetteExtractor class,
 which is used to extract silhouettes from regions of interest (ROIs).
 """
 from os import listdir, path
-from typing import List, Optional
+from typing import List, Optional, Dict
 from cv2 import imread, imwrite, resize, cvtColor, COLOR_BGR2RGB # pylint: disable=no-name-in-module
 from numpy import ndarray
 
@@ -43,11 +43,10 @@ class SilhouetteExtractor:
 
     def __init__(
         self,
+        config: Dict[str, str | List],
         region_of_interest_dir: str,
         silhouettes_dir: str,
-        views: List[str],
         segmenter: SilhouetteSegmenter,
-        walks: List[str] = None,
         verbose: bool = False
         ):
         """
@@ -61,11 +60,11 @@ class SilhouetteExtractor:
             segmenter (SilhouetteSegmenter): An instance of the SilhouetteSegmenter class.
             walks (List[str], optional): A list of walks to process. Defaults to None.
         """
-        self.region_of_interest_dir = region_of_interest_dir
-        self.silhouettes_dir = silhouettes_dir
-        self.views = views
+        self.region_of_interest_dir = path.join(config['dataset_dir'], config['dataset_name'], region_of_interest_dir)
+        self.silhouettes_dir = path.join(config['dataset_dir'], config['dataset_name'], silhouettes_dir)
+        self.views = config['views']
         self.segmenter = segmenter
-        self.walks = walks or self.DEFAULT_WALKS
+        self.walks = config['walks']
         self.verbose = verbose
 
     def extract_silhouettes_from_rois(self) -> None:
