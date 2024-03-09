@@ -1,0 +1,41 @@
+{
+    "dataset_dir": "../../datasets",
+    "dataset_name": "OAKGait16",
+    "clips_dir": "/mnt/c/Users/chris/Documents/OAKGait16/clips/",
+    "views": [
+        "060",
+        "075",
+        "090",
+        "105",
+        "120"
+    ],
+    "subjects": [
+        "000",
+        "001",
+        "002",
+        "003",
+        "004",
+        "005",
+        "006",
+        "007",
+        "008",
+        "009",
+        "010",
+        "011",
+        "012",
+        "013",
+        "014",
+        "015",
+        "016"
+    ],
+    "training_clips": {
+        "nm": 5,
+        "bg": 5,
+        "cl": 5
+    },
+    "test_clips": {
+        "nm": 5,
+        "bg": 5,
+        "cl": 5
+    }
+}
