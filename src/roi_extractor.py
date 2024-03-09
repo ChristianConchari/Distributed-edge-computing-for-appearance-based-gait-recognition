@@ -1,7 +1,7 @@
 """
 This class is used to extract the region of interest (ROI) from frames for each view and subject.
 """
-from typing import List
+from typing import List, Dict
 from os import path, listdir
 from cv2 import imread, cvtColor, COLOR_BGR2RGB, imwrite # pylint: disable=no-name-in-module
 from .roi_finder import ROIFinder
@@ -35,26 +35,22 @@ class ROIExtractor:
     """
     def __init__(
         self,
+        config: Dict[str, str | List],
         images_dir: str,
         region_of_interest_dir: str,
-        frs_dir: str,
-        views: List[str],
-        subjects: List[str],
         roi_finder: ROIFinder,
         verbose: bool,
-        walk_types: List[str] = None
     ):
         """
         Initializes an instance of the ROIExtractor class.
         """
-        self.images_dir = images_dir
-        self.region_of_interest_dir = region_of_interest_dir
-        self.frs_dir = frs_dir
-        self.views = views
-        self.subjects = subjects
-        self.verbose = verbose
-        self.walk_types = walk_types or ['nm', 'bg', 'cl']
+        self.images_dir = path.join(config['dataset_dir'], config['dataset_name'], images_dir)
+        self.region_of_interest_dir = path.join(config['dataset_dir'], config['dataset_name'], region_of_interest_dir)
+        self.views = config['views']
+        self.subjects = config['subjects']
+        self.walk_types = config['walks']
         self.roi_finder = roi_finder
+        self.verbose = verbose
 
     def process_image(
         self,
@@ -168,7 +164,7 @@ class ROIExtractor:
             None
         """
         for view in self.views:
-            frames_dir = path.join(self.images_dir, view, self.frs_dir)
+            frames_dir = path.join(self.images_dir, view)
             rois_dir = path.join(self.region_of_interest_dir, view)
             if self.verbose:
                 print(f'PROCESSING VIEW: {view}')
