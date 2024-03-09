@@ -12,10 +12,8 @@ class TestDataGenerator:
     A class that generates test data for appearance-based gait recognition.
 
     Attributes:
-        clips_directory (str): The directory containing the clips.
-        test_clips_directory (str): The directory to store the test clips.
-        subjects (List[str]): The list of subjects.
-        nclips (Dict[str, int]): A dictionary mapping subject names to the number of clips.
+        config (Dict[str, str | List]): A dictionary containing the configuration for the test data generator.
+        test_clips_dir (str): The directory to store the test clips.
         verbose (bool): Whether to print verbose output.
 
     Methods:
@@ -33,28 +31,23 @@ class TestDataGenerator:
     """
     def __init__(
         self,
-        clips_directory: str,
-        test_clips_directory: str,
-        subjects: List[str],
-        nclips: Dict[str, int],
-        views: List[str],
+        config: Dict[str, str | List],
+        test_clips_dir: str,
         verbose: bool = False,
         ):
         """
         Initializes the TestDataGenerator object.
 
         Args:
-            clips_directory (str): The directory containing the clips.
-            test_clips_directory (str): The directory to store the test clips.
-            subjects (List[str]): The list of subjects.
-            nclips (Dict[str, int]): A dictionary mapping subject names to the number of clips.
-            verbose (bool, optional): Whether to print verbose output. Defaults to False.
+            config (Dict[str, str | List]): A dictionary containing the configuration for the test data generator.
+            test_clips_dir (str): The directory to store the test clips.
+            verbose (bool): Whether to print verbose output.
         """
-        self.clips_directory = clips_directory
-        self.test_clips_directory = test_clips_directory
-        self.subjects = subjects
-        self.nclips = nclips
-        self.views = views
+        self.clips_directory = config['clips_dir']
+        self.test_clips_dir = path.join(config['dataset_dir'], config['dataset_name'], test_clips_dir)
+        self.subjects = config['subjects']
+        self.nclips = config['test_clips']
+        self.views = config['views']
         self.verbose = verbose
 
     def process_clips(self, walk_dir: str, test_dir: str, subject: str, walk: str) -> None:
@@ -122,7 +115,7 @@ class TestDataGenerator:
             None
         """
         for view in self.views:
-            test_dir = path.join(self.test_clips_directory, view)
+            test_dir = path.join(self.test_clips_dir, view)
             if self.verbose:
                 print(f'PROCESSING VIEW: {view}')
             self.process_subjects(test_dir, view)
