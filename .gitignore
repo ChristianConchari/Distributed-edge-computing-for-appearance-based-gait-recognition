@@ -133,3 +133,6 @@ dmypy.json
 
 # Datasets
 datasets/
+test_clips/
+test_frames/
+test_GEIs/
