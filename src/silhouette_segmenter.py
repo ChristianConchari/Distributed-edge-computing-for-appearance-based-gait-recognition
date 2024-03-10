@@ -39,7 +39,7 @@ class SilhouetteSegmenter:
         _crop_and_resize_silhouette(self, biggest: ndarray, contours1: list, size: int) -> ndarray:
             Crop and resize the silhouette image.
     """
-    def __init__(self, model_path: str, device: str = "CPU") -> None:
+    def __init__(self, model_path: str, device: str = "CPU", binarization_th: int = 0.5) -> None:
         """
         Initializes the SilhouetteSegmenter object.
 
@@ -85,7 +85,7 @@ class SilhouetteSegmenter:
         # Transpose the output to match the input shape
         prediction = next(iter(result.values())).transpose(0, 3, 1, 2)
         # Convert the output to a binary image
-        return array(where(prediction[0][0] > 0.5, 255, 0)).astype('uint8')
+        return array(where(prediction[0][0] > self.binarization_th, 255, 0)).astype('uint8')
 
     def sil_centering(self, img: ndarray, size: int = 64) -> ndarray:
         """
