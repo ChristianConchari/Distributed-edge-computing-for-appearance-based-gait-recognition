@@ -37,7 +37,6 @@ class SilhouetteExtractor:
         write_silhouette(sil: ndarray, seq_path: str, sub_sil_dir: str): 
             Writes the silhouette image to the specified directory.
     """
-    DEFAULT_WALKS = ['nm', 'bg', 'cl']
     SILHOUETTE_THRESHOLD = 2
     IMAGE_WIDTH_FOR_CENTERING = 220
 
@@ -114,7 +113,7 @@ class SilhouetteExtractor:
         if self.verbose:
             print(f'Processing subject: {subject} view: {view}')
         create_dir(path.join(sils_dir, subject), force=True)
-        for walk in self.DEFAULT_WALKS:
+        for walk in self.walks:
             self.process_walk(subject, walk, rois_dir, sils_dir)
 
     def process_walk(self, subject: str, walk: str, rois_dir: str, sils_dir: str) -> None:

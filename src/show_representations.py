@@ -3,7 +3,7 @@ This module contains the function to show images from the given directory.
 """
 from os import path, listdir
 from random import sample
-from typing import List
+from typing import List, Dict
 from cv2 import imread, cvtColor, COLOR_BGR2RGB # pylint: disable=no-name-in-module
 from numpy import ndarray
 from matplotlib.pyplot import imshow, axis, title, show, figure, subplot
@@ -79,8 +79,8 @@ def _process_subjects(subjects_dir: str, num_subjects: int) -> None:
         print(f"Failed to process subjects: {e}")
 
 def show_representations(
+    config: Dict[str, str | List],
     representations_dir: str,
-    views: List[str],
     num_subjects: int = 3
     ) -> None:
     """
@@ -95,7 +95,7 @@ def show_representations(
     - None
     """
     try:
-        for view in views:
+        for view in config['views']:
             subjects_dir = path.join(representations_dir, view)
             print(f'SHOWING VIEW: {view}')
             _process_subjects(subjects_dir, num_subjects)

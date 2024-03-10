@@ -2,13 +2,11 @@
 This module contains the GEIGenerator class,
 which is used to generate Gait Energy Images (GEIs) from silhouettes.
 """
-from typing import List, Optional
+from typing import Optional
 from os import path, listdir
 from cv2 import imread, imwrite # pylint: disable=no-name-in-module
 from numpy import mean, array
 from .create_dir import create_dir
-
-DEFAULT_WALKS = ['nm', 'bg', 'cl']
 
 class GEIGenerator:
     """
@@ -35,17 +33,16 @@ class GEIGenerator:
     """
     def __init__(
         self,
+        config,
         silhouettes_dir: str,
         representations_dir: str,
-        views: List[str],
-        walks: Optional[List[str]] = None,
-        n_frames: int = 30,
+        n_frames: Optional[int] = None,
         verbose: bool = False
         ):
-        self.silhouettes_dir = silhouettes_dir
-        self.representations_dir = representations_dir
-        self.views = views
-        self.walks = walks or DEFAULT_WALKS
+        self.silhouettes_dir = path.join(config['dataset_dir'], config['dataset_name'],  silhouettes_dir)
+        self.representations_dir = path.join(config['dataset_dir'], config['dataset_name'], representations_dir)
+        self.views = config['views']
+        self.walks = config['walks']
         self.n_frames = n_frames
         self.verbose = verbose
 
@@ -153,11 +150,16 @@ class GEIGenerator:
         sequence_frames_directory = path.join(sequence_directory, sequence)
         frame_paths = sorted(listdir(sequence_frames_directory))
         total_frames = len(frame_paths)
-        num_batches = (total_frames + self.n_frames-1) // self.n_frames
-
+        if self.n_frames is None:
+            num_batches = 1
+            start_index = 0
+            end_index = total_frames - 5
+        else:
+            num_batches = (total_frames + self.n_frames-1) // self.n_frames
         for batch_index in range(num_batches):
-            start_index = batch_index * self.n_frames
-            end_index = min(start_index + self.n_frames, total_frames)
+            if self.n_frames is not None:
+                start_index = batch_index * self.n_frames
+                end_index = min(start_index + self.n_frames, total_frames)
             batch_frame_paths = frame_paths[start_index:end_index]
             silhouettes = [
                 imread(path.join(sequence_frames_directory, frame_path))
