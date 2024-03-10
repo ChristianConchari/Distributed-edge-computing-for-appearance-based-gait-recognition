@@ -2,6 +2,11 @@
     "dataset_dir": "../../datasets",
     "dataset_name": "OAKGait16",
     "clips_dir": "/mnt/c/Users/chris/Documents/OAKGait16/clips/",
+    "walks": [
+        "nm",
+        "bg",
+        "cl"
+    ],
     "views": [
         "060",
         "075",
