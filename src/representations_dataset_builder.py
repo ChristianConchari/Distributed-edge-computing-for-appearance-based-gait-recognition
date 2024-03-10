@@ -5,6 +5,7 @@ is used to build the dataset for the given representations.
 from os import listdir, path
 from shutil import copy
 from .create_dir import create_dir
+from typing import List, Dict
 
 class RepresentationsDatasetBuilder:
     """
@@ -15,9 +16,9 @@ class RepresentationsDatasetBuilder:
     for each subject.
     
     Attributes:
+        config (Dict[str, str | List]): The configuration dictionary.
         representations_dir (str): The directory path where the representations are stored.
         training_path (str): The path to the training data.
-        views (int): The number of views for each sample.
         verbose (bool): Flag indicating whether to display verbose output.
     
     Methods:
@@ -26,18 +27,24 @@ class RepresentationsDatasetBuilder:
         process_gei_images: Process GEI images from a given directory and save them
             in the training directory.
     """
-    def __init__(self, representations_dir, training_path, views):
+    def __init__(
+        self,
+        config: Dict[str, str | List],
+        representations_dir: str,
+        training_path: str,
+        ):
         """
         Initializes a DatasetBuilder object.
 
         Args:
+            config (Dict[str, str | List]): The configuration dictionary.
             representations_dir (str): The directory path where the representations are stored.
             training_path (str): The path to the training data.
-            views (int): The number of views for each sample.
+            
         """
-        self.representations_dir = representations_dir
-        self.training_path = training_path
-        self.views = views
+        self.representations_dir = path.join(config['dataset_dir'], config['dataset_name'], representations_dir)
+        self.training_path = path.join(config['dataset_dir'], config['dataset_name'], training_path)
+        self.views = config['views']
         self.verbose = False
         self.create_dirs()
         
