@@ -52,6 +52,7 @@ class SilhouetteSegmenter:
         self.compiled_model = self.ie.compile_model(model=self.model, device_name=device)
         self.input_layer = next(iter(self.compiled_model.inputs))
         self.output_layer = next(iter(self.compiled_model.outputs))
+        self.binarization_th = binarization_th
 
     def preprocess_image(self, roi_img: ndarray) -> ndarray:
         """
