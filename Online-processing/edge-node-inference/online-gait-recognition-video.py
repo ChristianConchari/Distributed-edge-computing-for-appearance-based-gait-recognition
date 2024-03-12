@@ -42,6 +42,9 @@ def main():
             with open(f'data_log_{view}.csv', 'w', encoding='utf-8', newline='') as f:
                 writer = csv.writer(f)
                 writer.writerow(["time_stamp", "pred", "label", "walk", "ssd_mobile_net_time", "segmentation_time", "cnn_time"])
+            with open(f'fps_data_log_{view}.csv', 'w', encoding='utf-8', newline='') as f:
+                writer = csv.writer(f)
+                writer.writerow(["time_stamp", "fps"])
             for subject in subjects:
                 walks = sorted(os.listdir(os.path.join(TEST_CLIPS,view,subject)))
                 save_frame_path = os.path.join(TEST_FRAMES_RESULT_PATH, subject, view)
@@ -128,7 +131,7 @@ def main():
                                         
                                         frame_end_time = monotonic()
                                         fps = round(1 / (frame_end_time - frame_start_time), 2)
-                                        with open(f'fps_data_log.csv', 'a', encoding='utf-8', newline='') as f:
+                                        with open(f'fps_data_log_{view}.csv', 'a', encoding='utf-8', newline='') as f:
                                             writer = csv.writer(f)
                                             writer.writerow([datetime.now().strftime("%m-%d-%Y--%H-%M"), fps])
                                         # draw bounding box, text and fps
