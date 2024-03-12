@@ -4,7 +4,6 @@ import depthai as dai #pylint: disable=import-error
 import tensorflow as tf
 import numpy as np
 import cv2
-from datetime import datetime
 from pathlib import Path
 
 from tensorflow.python.saved_model import tag_constants #pylint: disable=no-name-in-module
@@ -80,15 +79,6 @@ class OnlinePipeline:
         except Exception as e: # pylint: disable=broad-except
             print(f'Found: {e}')
         return sil_centered
-
-    def save_data_log(self, class_id, subject, walk, pred_acc, view):
-        row = [datetime.now().strftime("%m-%d-%Y--%H-%M"), str(class_id).zfill(3), subject, walk, str(pred_acc)]
-        print(row)
-        with open(f'data_log_{view}.csv', 'a', encoding='utf-8', newline='') as f:
-            # create the csv writer
-            writer = csv.writer(f)
-            # write a row to the csv file
-            writer.writerow(row)
 
     def get_classification_id(self, silhouettes):
         gei = np.zeros((220,220), np.uint8)
