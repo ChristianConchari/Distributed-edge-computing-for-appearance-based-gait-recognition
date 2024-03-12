@@ -48,6 +48,7 @@ def main():
                 create_dir(save_frame_path)
                 save_gei_path = os.path.join(TEST_GEIS_RESULT_PATH, subject, view)
                 create_dir(save_gei_path)
+                past_log_time = monotonic()
                 for walk in walks:
                     video_files = sorted(os.listdir(os.path.join(TEST_CLIPS,view,subject,walk)))
                     number_generated_geis = 0
@@ -128,9 +129,11 @@ def main():
                                         
                                         frame_end_time = monotonic()
                                         fps = round(1 / (frame_end_time - frame_start_time), 2)
-                                        with open(f'../../csv_data/fps_data_log_{view}.csv', 'a', encoding='utf-8', newline='') as f:
-                                            writer = csv.writer(f)
-                                            writer.writerow([datetime.now().strftime("%m-%d-%Y--%H-%M"), fps])
+                                        if monotonic() - past_log_time > 30:
+                                            past_log_time = monotonic()
+                                            with open(f'../../csv_data/fps_data_log_{view}.csv', 'a', encoding='utf-8', newline='') as f:
+                                                writer = csv.writer(f)
+                                                writer.writerow([datetime.now().strftime("%m-%d-%Y--%H-%M"), fps])
                                         # draw bounding box, text and fps
                                         cv2.rectangle(frame, (bbox[0], bbox[1]), (bbox[0]+40, bbox[1]-20), color, -1)
                                         cv2.putText(frame, text_id, (bbox[0] + 2, bbox[1] - 5), cv2.FONT_HERSHEY_TRIPLEX, 0.5, (0,0,0), 1, cv2.LINE_AA)
