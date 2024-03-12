@@ -155,12 +155,15 @@ class GEIGenerator:
             start_index = 0
             end_index = total_frames - 5
         else:
-            num_batches = (total_frames + self.n_frames-1) // self.n_frames
+            num_batches = total_frames // self.n_frames  # Compute the max number of GEIs
         for batch_index in range(num_batches):
-            if self.n_frames is not None:
-                start_index = batch_index * self.n_frames
-                end_index = min(start_index + self.n_frames, total_frames)
+            start_index = batch_index * self.n_frames
+            end_index = min(start_index + self.n_frames, total_frames)
             batch_frame_paths = frame_paths[start_index:end_index]
+            
+            if len(batch_frame_paths) < self.n_frames:
+                continue
+    
             silhouettes = [
                 imread(path.join(sequence_frames_directory, frame_path))
                 for frame_path in batch_frame_paths
