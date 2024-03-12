@@ -34,14 +34,14 @@ def main():
         # output queue will be used to get nn data from the video frames.
         q_det = device.getOutputQueue(name="nn", maxSize=4, blocking=False)
         views = sorted(os.listdir(TEST_CLIPS))
+        with open(f'fps_data_log.csv', 'w', encoding='utf-8', newline='') as f:
+                writer = csv.writer(f)
+                writer.writerow(["time_stamp", "fps"])
         for view in views:
             subjects = sorted(os.listdir(os.path.join(TEST_CLIPS,view)))
             with open(f'data_log_{view}.csv', 'w', encoding='utf-8', newline='') as f:
                 writer = csv.writer(f)
                 writer.writerow(["time_stamp", "pred", "label", "walk", "ssd_mobile_net_time", "segmentation_time", "cnn_time"])
-            with open(f'fps_data_log_{view}.csv', 'w', encoding='utf-8', newline='') as f:
-                writer = csv.writer(f)
-                writer.writerow(["time_stamp", "fps"])
             for subject in subjects:
                 walks = sorted(os.listdir(os.path.join(TEST_CLIPS,view,subject)))
                 save_frame_path = os.path.join(TEST_FRAMES_RESULT_PATH, subject, view)
@@ -55,6 +55,8 @@ def main():
                         detections = []
                         color = (0, 0, 255)
                         silhouettes = []
+                        segmentation_inference_times = []
+                        mobilenet_inference_times = []
                         class_id = None
                         print(f"Processing: subject {subject} in view {view} in walk {walk}")
                         cap = cv2.VideoCapture(os.path.join(TEST_CLIPS,view,subject,walk,video_path))
@@ -76,7 +78,7 @@ def main():
                             # get detections from object detection model
                             in_det = q_det.tryGet()
                             end_time = monotonic()
-                            mobilenet_inference_time = round(end_time - start_time, 4)
+                            mobilenet_inference_times.append(end_time - start_time)
                             if in_det is not None:
                                 detections = in_det.detections
                             if frame is not None:
@@ -88,7 +90,7 @@ def main():
                                         start_time = monotonic()
                                         sil_centered = op.get_binarized_silhouette(roi)
                                         end_time = monotonic()
-                                        segmentation_inference_time = round(end_time - start_time, 4)
+                                        segmentation_inference_times.append(end_time - start_time)
                                         #cv2.imshow(sil_centered)
                                         # append normalized silhouettes to list
                                         silhouettes.append(sil_centered)
@@ -104,10 +106,10 @@ def main():
                                                 str(class_id).zfill(3),
                                                 subject,
                                                 walk,
-                                                mobilenet_inference_time,
-                                                segmentation_inference_time,
+                                                round(sum(mobilenet_inference_times) / len(mobilenet_inference_times), 4),
+                                                round(sum(segmentation_inference_times) / len(segmentation_inference_times), 4),
                                                 cnn_inference_time
-                                                ]
+                                            ]
                                             print(row)
                                             with open(f'data_log_{view}.csv', 'a', encoding='utf-8', newline='') as f:
                                                 writer = csv.writer(f)
@@ -126,7 +128,7 @@ def main():
                                         
                                         frame_end_time = monotonic()
                                         fps = round(1 / (frame_end_time - frame_start_time), 2)
-                                        with open(f'fps_data_log_{view}.csv', 'a', encoding='utf-8', newline='') as f:
+                                        with open(f'fps_data_log.csv', 'a', encoding='utf-8', newline='') as f:
                                             writer = csv.writer(f)
                                             writer.writerow([datetime.now().strftime("%m-%d-%Y--%H-%M"), fps])
                                         # draw bounding box, text and fps
