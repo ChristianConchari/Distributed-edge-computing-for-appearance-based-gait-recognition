@@ -52,7 +52,7 @@ class OnlinePipeline:
         xin_frame.out.link(nn.input)
         nn.out.link(nn_out.input)
         # initialize the silhouette segmenter
-        segmenter = SilhouetteSegmenter(model_path=segmentation_model_path, device=MYRIAD_DEVICE, binarization_th=0.4)
+        segmenter = SilhouetteSegmenter(model_path=segmentation_model_path, device=MYRIAD_DEVICE, binarization_th=0.3)
         # define OAK-D device
         found, device_info = dai.Device.getDeviceByMxId(DEVICE_MX_ID)
         if not found:
@@ -82,9 +82,9 @@ class OnlinePipeline:
         return sil_centered
 
     def save_data_log(self, class_id, subject, walk, pred_acc, view):
-        row = [datetime.now().strftime("%m-%d-%Y--%H-%M") + "," + str(class_id).zfill(3) + "," + subject + "," + walk + "," + str(pred_acc)]
+        row = [datetime.now().strftime("%m-%d-%Y--%H-%M"), str(class_id).zfill(3), subject, walk, str(pred_acc)]
         print(row)
-        with open(f'data_log_{view}.csv', 'a', encoding='utf-8') as f:
+        with open(f'data_log_{view}.csv', 'a', encoding='utf-8', newline='') as f:
             # create the csv writer
             writer = csv.writer(f)
             # write a row to the csv file
@@ -92,6 +92,8 @@ class OnlinePipeline:
 
     def get_classification_id(self, silhouettes):
         gei = np.zeros((220,220), np.uint8)
+        class_id = None
+        pred_acc = 0.0
         try:
             # Compute the silhouettes array to obtain GEI
             gei = np.mean(np.array(silhouettes), axis=0).astype('uint8')
@@ -100,9 +102,10 @@ class OnlinePipeline:
             gei_pred = tf.reshape(gei_pred, [-1, 220, 220, 1])
             gei_pred = tf.dtypes.cast(gei_pred, tf.float32)
             # run inference
-            pred = np.asarray(self.infer(gei_pred)['output_1'])
+            pred = np.asarray(self.infer(gei_pred)['dense_1'])
             # get the class ID and prediction certainty
             class_id = int(tf.argmax(pred, axis = 1))
+            class_id = class_id if class_id < 6 else class_id + 1
             pred_acc = round(pred[0][class_id], 2)
             #cv2.imshow("GEI", gei)
         except Exception as e: # pylint: disable=broad-except

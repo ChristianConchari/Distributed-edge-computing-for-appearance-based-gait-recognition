@@ -6,14 +6,15 @@ from time import monotonic
 sys.path.insert(0, '../../')
 from src.create_dir import create_dir
 from online_pipeline import OnlinePipeline
+import csv
 
 os.environ['TF_XLA_FLAGS'] = '--tf_xla_enable_xla_devices'
 
-CNN_GAIT_RECOGNITION_MODEL_PATH = "../../models/cnn_gait_recognition_acc_0.9514_loss_0.3384_val_acc_0.9361_loss_acc_0.4261_TFTRT_FP16"
+CNN_GAIT_RECOGNITION_MODEL_PATH = "../../models/tftrt_cnn_gait_recognition_acc_0.9499_loss_0.3443_val_acc_0.8934_loss_acc_0.5382"
 MOBILENET_SSD_MODEL_PATH = "../../models/mobilenet-ssd_openvino_2021.4_6shave.blob"
 LABEL_MAP = ["background", "aeroplane", "bicycle", "bird", "boat", "bottle", "bus", "car", "cat", "chair", "cow",
                 "diningtable", "dog", "horse", "motorbike", "person", "pottedplant", "sheep", "sofa", "train", "tvmonitor"]
-SEGMENTATION_MODEL_PATH = "../../models/128x128_acc_0.8786_loss_0.1018_val-acc_0.8875_val-loss_0.0817_0.22M_13-09-22-TF_OAKGait16.xml"
+SEGMENTATION_MODEL_PATH = "../../models/128x128_acc_0.8433_loss_0.0590_val-acc_0.8462_val-loss_0.0771_0.22M_13-09-22-TF_OAKGait16/model.xml"
 
 TEST_FRAMES_RESULT_PATH = "../../test_frames"
 TEST_GEIS_RESULT_PATH = "../../test_GEIs"
@@ -34,6 +35,9 @@ def main():
         views = sorted(os.listdir(TEST_CLIPS))
         for view in views:
             subjects = sorted(os.listdir(os.path.join(TEST_CLIPS,view)))
+            with open(f'data_log_{view}.csv', 'w', encoding='utf-8', newline='') as f:
+                writer = csv.writer(f)
+                writer.writerow(["time_stamp", "pred", "label", "walk", "acc"])
             for subject in subjects:
                 walks = sorted(os.listdir(os.path.join(TEST_CLIPS,view,subject)))
                 save_frame_path = os.path.join(TEST_FRAMES_RESULT_PATH, subject, view)
@@ -50,14 +54,7 @@ def main():
                         class_id = None
                         print(f"Processing: subject {subject} in view {view} in walk {walk}")
                         cap = cv2.VideoCapture(os.path.join(TEST_CLIPS,view,subject,walk,video_path))
-                        length = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
-                        print(length)
-                        if length > 85:
-                            cfr = 85
-                        elif subject == '005':
-                            cfr = 70
-                        else:
-                            cfr = int(length*0.85)
+
                         while cap.isOpened():
                             read_correctly, frame = cap.read()
                             if not read_correctly:
@@ -85,14 +82,14 @@ def main():
                                         # append normalized silhouettes to list
                                         silhouettes.append(sil_centered)
                                         # compute gei for all the gathered silhouettes
-                                        if len(silhouettes) % cfr == 0:
+                                        if len(silhouettes) % 40 == 0 and len(silhouettes) != 0:
                                             number_generated_geis += 1
                                             class_id, pred_acc, gei = op.get_classification_id(silhouettes)
                                             # check if identified subject correspond to video subject
                                             color = (0, 255, 0) if str(class_id).zfill(3) == subject else (0, 0, 255)
                                             op.save_data_log(class_id, subject, walk, pred_acc, view)
                                         # clean silhouettes array if 40 silhouettes is reached
-                                        if len(silhouettes) > cfr:
+                                        if len(silhouettes) > 40:
                                             silhouettes = []
                                         # if subject is not identified show wait message, else show subject ID                                    
                                         if class_id is None:
