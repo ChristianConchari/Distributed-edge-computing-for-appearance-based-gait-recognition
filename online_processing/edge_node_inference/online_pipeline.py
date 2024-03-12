@@ -83,7 +83,6 @@ class OnlinePipeline:
     def get_classification_id(self, silhouettes):
         gei = np.zeros((220,220), np.uint8)
         class_id = None
-        pred_acc = 0.0
         try:
             # Compute the silhouettes array to obtain GEI
             gei = np.mean(np.array(silhouettes), axis=0).astype('uint8')
@@ -96,11 +95,10 @@ class OnlinePipeline:
             # get the class ID and prediction certainty
             class_id = int(tf.argmax(pred, axis = 1))
             class_id = class_id if class_id < 6 else class_id + 1
-            pred_acc = round(pred[0][class_id], 2)
             #cv2.imshow("GEI", gei)
         except Exception as e: # pylint: disable=broad-except
             print(f'Found: {e}')
-        return class_id, pred_acc, gei
+        return class_id, gei
 
     # nn data, being the bounding box locations, are in <0..1> range - they need to be normalized with frame width/height
     def _frame_norm(self, frame, bbox):

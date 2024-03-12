@@ -51,7 +51,6 @@ def main():
                 past_log_time = monotonic()
                 for walk in walks:
                     video_files = sorted(os.listdir(os.path.join(TEST_CLIPS,view,subject,walk)))
-                    number_generated_geis = 0
                     for video_path in video_files:
                         detections = []
                         color = (0, 0, 255)
@@ -59,6 +58,7 @@ def main():
                         segmentation_inference_times = []
                         mobilenet_inference_times = []
                         class_id = None
+                        number_generated_geis = 0
                         print(f"Processing: subject {subject} in view {view} in walk {walk}")
                         cap = cv2.VideoCapture(os.path.join(TEST_CLIPS,view,subject,walk,video_path))
 
@@ -97,16 +97,18 @@ def main():
                                         silhouettes.append(sil_centered)
                                         # compute gei for all the gathered silhouettes
                                         if len(silhouettes) % 40 == 0 and len(silhouettes) != 0:
+                                            data_silhouettes = silhouettes.copy()
+                                            silhouettes = []
                                             number_generated_geis += 1
                                             start_time = monotonic()
-                                            class_id, pred_acc, gei = op.get_classification_id(silhouettes)
+                                            class_id, gei = op.get_classification_id(data_silhouettes)
                                             end_time = monotonic()
                                             cnn_inference_time = round(end_time - start_time, 4)
                                             row = [
                                                 datetime.now().strftime("%m-%d-%Y--%H-%M"),
                                                 str(class_id).zfill(3),
                                                 subject,
-                                                walk,
+                                                f'{walk}-{str(video_path.split(".")[0])}-{str(number_generated_geis)}',
                                                 round(sum(mobilenet_inference_times) / len(mobilenet_inference_times), 4),
                                                 round(sum(segmentation_inference_times) / len(segmentation_inference_times), 4),
                                                 cnn_inference_time
@@ -117,9 +119,6 @@ def main():
                                                 writer.writerow(row)
                                             # check if identified subject correspond to video subject
                                             color = (0, 255, 0) if str(class_id).zfill(3) == subject else (0, 0, 255)
-                                        # clean silhouettes array if 40 silhouettes is reached
-                                        if len(silhouettes) > 40:
-                                            silhouettes = []
                                         # if subject is not identified show wait message, else show subject ID                                    
                                         if class_id is None:
                                             text_id = "wait"
@@ -129,7 +128,7 @@ def main():
                                         
                                         frame_end_time = monotonic()
                                         fps = round(1 / (frame_end_time - frame_start_time), 2)
-                                        if monotonic() - past_log_time > 30:
+                                        if monotonic() - past_log_time > 10:
                                             past_log_time = monotonic()
                                             with open(f'../../csv_data/fps_data_log_{view}.csv', 'a', encoding='utf-8', newline='') as f:
                                                 writer = csv.writer(f)
@@ -140,8 +139,10 @@ def main():
                                         cv2.rectangle(frame, (bbox[0], bbox[1]), (bbox[2], bbox[3]), color, 2)
                                         # save identification frames
                                         if class_id is not None:
-                                            cv2.imwrite(os.path.join(save_frame_path, f'{subject}-{str(class_id).zfill(3)}-{view}-{video_path.split(".")[0]}-{number_generated_geis}.jpg'), frame)
-                                            cv2.imwrite(os.path.join(save_gei_path, f'{subject}-{str(class_id).zfill(3)}-{view}-{video_path.split(".")[0]}-{number_generated_geis}.jpg'), gei)
+                                            tmp_class_id = class_id
+                                            class_id = None
+                                            cv2.imwrite(os.path.join(save_frame_path, f'{subject}-{str(tmp_class_id).zfill(3)}-{view}-{video_path.split(".")[0]}-{number_generated_geis}.jpg'), frame)
+                                            cv2.imwrite(os.path.join(save_gei_path, f'{subject}-{str(tmp_class_id).zfill(3)}-{view}-{video_path.split(".")[0]}-{number_generated_geis}.jpg'), gei)
                                         #cv2.imshow("rgb", frame)
                             if cv2.waitKey(1) == ord('q'):
                                 break
