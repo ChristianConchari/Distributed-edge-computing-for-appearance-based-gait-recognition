@@ -20,12 +20,14 @@ SEGMENTATION_MODEL_PATH = "../../models/128x128_acc_0.8433_loss_0.0590_val-acc_0
 TEST_FRAMES_RESULT_PATH = "../../test_frames"
 TEST_GEIS_RESULT_PATH = "../../test_GEIs"
 TEST_CLIPS = "../../test_clips"
+CSV_DATA_PATH = "../../csv_data_video"
 
 def main():
     op = OnlinePipeline(
         cnn_gait_recognition_model_path=CNN_GAIT_RECOGNITION_MODEL_PATH,
         mobilenet_ssd_model_path=MOBILENET_SSD_MODEL_PATH,
-        segmentation_model_path=SEGMENTATION_MODEL_PATH
+        segmentation_model_path=SEGMENTATION_MODEL_PATH,
+        is_video=True
     )
     # connect to device and start pipeline
     with dai.Device(op.pipeline, op.device_info) as device:
@@ -35,11 +37,13 @@ def main():
         q_det = device.getOutputQueue(name="nn", maxSize=4, blocking=False)
         views = sorted(os.listdir(TEST_CLIPS))
         for view in views:
+            if not os.path.exists(CSV_DATA_PATH):
+                create_dir(CSV_DATA_PATH)
             subjects = sorted(os.listdir(os.path.join(TEST_CLIPS,view)))
-            with open(f'../../csv_data/data_log_{view}.csv', 'w', encoding='utf-8', newline='') as f:
+            with open(f'{CSV_DATA_PATH}/data_log_{view}.csv', 'w', encoding='utf-8', newline='') as f:
                 writer = csv.writer(f)
                 writer.writerow(["time_stamp", "pred", "label", "walk", "ssd_mobile_net_time", "segmentation_time", "cnn_time"])
-            with open(f'../../csv_data/fps_data_log_{view}.csv', 'w', encoding='utf-8', newline='') as f:
+            with open(f'{CSV_DATA_PATH}/fps_data_log_{view}.csv', 'w', encoding='utf-8', newline='') as f:
                 writer = csv.writer(f)
                 writer.writerow(["time_stamp", "fps"])
             for subject in subjects:
