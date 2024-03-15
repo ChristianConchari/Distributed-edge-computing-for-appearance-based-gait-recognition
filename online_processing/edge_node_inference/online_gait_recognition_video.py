@@ -95,7 +95,7 @@ def main():
                                         #cv2.imshow(sil_centered)
                                         # append normalized silhouettes to list
                                         silhouettes.append(sil_centered)
-                                        # compute gei for all the gathered silhouettes
+                                        # compute gei for 40 silhouettes
                                         if len(silhouettes) % 40 == 0 and len(silhouettes) != 0:
                                             data_silhouettes = silhouettes.copy()
                                             silhouettes = []

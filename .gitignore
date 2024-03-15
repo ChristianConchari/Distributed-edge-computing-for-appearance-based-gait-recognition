@@ -136,3 +136,5 @@ datasets/
 test_clips/
 test_frames/
 test_GEIs/
+csv_data
+data_recordings
