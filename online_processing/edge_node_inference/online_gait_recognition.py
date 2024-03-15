@@ -134,7 +134,7 @@ def main(subject):
                     fps = counter / (time.monotonic() - fps_start_time)
                     cv2.putText(frame, f"NN fps: {fps:.2f}",
                                 (2, frame.shape[0] - 4), cv2.FONT_HERSHEY_TRIPLEX, 1, color)
-                    if time.monotonic() - past_log_time > 1:
+                    if time.monotonic() - past_log_time > 0.5:
                         past_log_time = time.monotonic()
                         with open(f'{csv_data}/fps_data_log_{VIEW}.csv', 'a', encoding='utf-8', newline='') as f:
                             writer = csv.writer(f)
