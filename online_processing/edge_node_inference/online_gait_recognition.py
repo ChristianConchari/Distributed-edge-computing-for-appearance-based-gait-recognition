@@ -37,19 +37,21 @@ def main(subject):
     sil_centered = np.zeros((220,220), np.uint8)
     gei = np.zeros((220,220), np.uint8)
     # create directory if current day directory is not created
-    data_recordings = "../../data_recordings"
-    csv_data = "../../csv_data"
-    gei_path = os.path.join(data_recordings, datetime.now().strftime("%m_%d_%Y") + f"{subject}_{VIEW}_GEI")
-    frame_path = os.path.join(data_recordings, datetime.now().strftime("%m_%d_%Y") + f"{subject}_{VIEW}-classID")
+    data_recordings = f"../../data_recordings/{subject}"
+    csv_data = f"../../csv_data/{subject}"
+    gei_path = os.path.join(data_recordings, datetime.now().strftime("%m_%d_%Y") + f"_{subject}_{VIEW}_GEI")
+    frame_path = os.path.join(data_recordings, datetime.now().strftime("%m_%d_%Y") + f"_{subject}_{VIEW}-classID")
     create_dir(data_recordings)
     create_dir(gei_path)
     create_dir(frame_path)
     create_dir(csv_data)
-    # create csv file to store data
+    # create csv files to store data
     with open(f'{csv_data}/data_log_{VIEW}.csv', 'w', encoding='utf-8', newline='') as f:
         writer = csv.writer(f)
         writer.writerow(["time_stamp", "pred", "label", "gei_number", "ssd_mobile_net_time", "segmentation_time", "cnn_time"])
-
+    with open(f'{csv_data}/fps_data_log_{VIEW}.csv', 'w', encoding='utf-8', newline='') as f:
+                writer = csv.writer(f)
+                writer.writerow(["time_stamp", "fps"])
     # connect to device and start pipeline
     with dai.Device(op.pipeline, op.device_info) as device:
         # output queues will be used to get the rgb frames and nn data from the outputs defined above
@@ -65,6 +67,7 @@ def main(subject):
         number_generated_geis = 0
         mobilenet_inference_times = []
         segmentation_inference_times = []
+        past_log_time = time.monotonic()
 
         while True:
             start_time = time.monotonic()
@@ -93,7 +96,8 @@ def main(subject):
                     end_time = time.monotonic()
                     segmentation_inference_times.append(end_time - start_time)
                     # append normalized silhouettes to list
-                    silhouettes.append(sil_centered)
+                    if np.mean(sil_centered) > 2:
+                        silhouettes.append(sil_centered)
                     # compute GEI for 40 silhouettes, 3 seconds of walking and approx. 3 gait cycles
                     if len(silhouettes) % 50 == 0 and len(silhouettes) != 0:
                         data_silhouettes = silhouettes.copy()
@@ -113,7 +117,7 @@ def main(subject):
                             cnn_inference_time
                         ]
                         print(row)
-                        with open(f'../../csv_data/data_log_{VIEW}.csv', 'a', encoding='utf-8', newline='') as f:
+                        with open(f'{csv_data}/data_log_{VIEW}.csv', 'a', encoding='utf-8', newline='') as f:
                             writer = csv.writer(f)
                             writer.writerow(row)
                         # check if identified subject correspond to video subject
@@ -127,9 +131,14 @@ def main(subject):
                     else:
                         text_id = str(class_id).zfill(3)
                         
-                    
-                    cv2.putText(frame, f"NN fps: {counter / (time.monotonic() - fps_start_time):.2f}",
+                    fps = counter / (time.monotonic() - fps_start_time)
+                    cv2.putText(frame, f"NN fps: {fps:.2f}",
                                 (2, frame.shape[0] - 4), cv2.FONT_HERSHEY_TRIPLEX, 1, color)
+                    if time.monotonic() - past_log_time > 1:
+                        past_log_time = time.monotonic()
+                        with open(f'{csv_data}/fps_data_log_{VIEW}.csv', 'a', encoding='utf-8', newline='') as f:
+                            writer = csv.writer(f)
+                            writer.writerow([datetime.now().strftime("%m-%d-%Y--%H-%M"), fps])
 
                     cv2.rectangle(frame, (bbox[0], bbox[1]), (bbox[0]+80, bbox[1]-40), color, -1)
                     cv2.putText(frame, text_id, (bbox[0] + 5, bbox[1] - 10), cv2.FONT_HERSHEY_TRIPLEX, 1, (0,0,0), 1, cv2.LINE_AA)
