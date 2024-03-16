@@ -141,7 +141,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;Jetson 6&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt;&quot;&gt;jetson 7&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
    <widget class="QPushButton" name="jetson4_button_true">
@@ -248,7 +248,7 @@
      <string>Jetson 5 OFF</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="jetson6_button_true">
+   <widget class="QPushButton" name="jetson7_button_true">
     <property name="geometry">
      <rect>
       <x>970</x>
@@ -258,10 +258,10 @@
      </rect>
     </property>
     <property name="text">
-     <string>Jetson 6 ON</string>
+     <string>jetson 7 ON</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="jetson6_button_false">
+   <widget class="QPushButton" name="jetson7_button_false">
     <property name="geometry">
      <rect>
       <x>970</x>
@@ -271,7 +271,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Jetson 6 OFF</string>
+     <string>jetson 7 OFF</string>
     </property>
    </widget>
   </widget>

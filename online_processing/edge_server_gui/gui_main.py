@@ -104,12 +104,12 @@ class App(QtWidgets.QMainWindow):
         self.button_NoJetson5.clicked.connect(self.jetson5_off_msg)
         self.button_jetson5.clicked.connect(self.jetson5_on_msg)
         
-        self.button_jetson6 = self.findChild(QtWidgets.QPushButton, 'jetson6_button_true')
-        self.button_jetson6.setVisible(False)
-        self.button_NoJetson6 = self.findChild(QtWidgets.QPushButton, 'jetson6_button_false')
-        self.button_NoJetson6.setVisible(True)
-        self.button_NoJetson6.clicked.connect(self.jetson6_off_msg)
-        self.button_jetson6.clicked.connect(self.jetson6_on_msg)
+        self.button_jetson7 = self.findChild(QtWidgets.QPushButton, 'jetson7_button_true')
+        self.button_jetson7.setVisible(False)
+        self.button_NoJetson7 = self.findChild(QtWidgets.QPushButton, 'jetson7_button_false')
+        self.button_NoJetson7.setVisible(True)
+        self.button_NoJetson7.clicked.connect(self.jetson7_off_msg)
+        self.button_jetson7.clicked.connect(self.jetson7_on_msg)
         
         
         self.image_label = self.findChild(QtWidgets.QLabel, 'device1')
@@ -121,13 +121,8 @@ class App(QtWidgets.QMainWindow):
         
 
         # create the video capture thread
-        
-        
-        # Jetson 4
-        #self.thread = VideoThread("192.168.1.207", 5555)
-        
+        #Jetson 4        
         self.thread = VideoThread("192.168.0.108", 5555)
-        
         # connect its signal to the update_image slot
         self.thread.change_pixmap_signal.connect(self.update_image1)
         # start the thread
@@ -152,20 +147,19 @@ class App(QtWidgets.QMainWindow):
 
         # create the video capture thread
         # Jetson 5
-        self.thread4 = VideoThread("192.168.0.139", 5555)
-        # connect its signal to the update_image slot
-        self.thread4.change_pixmap_signal.connect(self.update_image4)
-        # start the thread
-        self.thread4.start()
+        # self.thread4 = VideoThread("192.168.0.163", 5555)
+        # # connect its signal to the update_image slot
+        # self.thread4.change_pixmap_signal.connect(self.update_image4)
+        # # start the thread
+        # self.thread4.start()
         
         # create the video capture thread
-        # Jetson 6
-        #self.thread5 = VideoThread("192.168.0.130", 5555)
-        self.thread5 = VideoThread("192.168.1.206", 5555)
-        # connect its signal to the update_image slot
-        self.thread5.change_pixmap_signal.connect(self.update_image5)
-        # start the thread
-        self.thread5.start()
+        # Jetson 7
+        # self.thread5 = VideoThread("192.168.0.185", 5555)
+        # # connect its signal to the update_image slot
+        # self.thread5.change_pixmap_signal.connect(self.update_image5)
+        # # start the thread
+        # self.thread5.start()
 
         
 
@@ -214,14 +208,14 @@ class App(QtWidgets.QMainWindow):
 
     
 
-    def jetson6_off_msg(self):
-        self.button_jetson6.setVisible(True)
-        self.button_NoJetson6.setVisible(False)
+    def jetson7_off_msg(self):
+        self.button_jetson7.setVisible(True)
+        self.button_NoJetson7.setVisible(False)
         self.image_label5.hide()
         
-    def jetson6_on_msg(self):
-        self.button_jetson6.setVisible(False)
-        self.button_NoJetson6.setVisible(True)
+    def jetson7_on_msg(self):
+        self.button_jetson7.setVisible(False)
+        self.button_NoJetson7.setVisible(True)
         self.image_label5.show()  
 
     
